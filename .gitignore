@@ -13,3 +13,6 @@
 research/
 runs/
 outputs/
+
+# odin is a separate git repository, not part of this engine
+.claude/skills/odin/
