@@ -1,0 +1,15 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Glob|Grep|WebSearch|WebFetch",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node /Users/abhishekratna/Documents/Claude Code/hyperresearch-vault/.hyperresearch/hook.js"
+          }
+        ]
+      }
+    ]
+  }
+}

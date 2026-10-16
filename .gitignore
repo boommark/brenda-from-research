@@ -1,0 +1,15 @@
+# Track only the engine: .claude/, CLAUDE.md, README.md, STYLE-GUIDE.md
+/*
+!/.gitignore
+!/.claude/
+!/CLAUDE.md
+!/README.md
+!/STYLE-GUIDE.md
+
+# never commit vault data, browser dumps, or local state
+.DS_Store
+.playwright-mcp/
+.hyperresearch/
+research/
+runs/
+outputs/
