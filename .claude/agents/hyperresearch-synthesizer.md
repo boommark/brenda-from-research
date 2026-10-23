@@ -124,44 +124,61 @@ STYLE-GUIDE.md is the full specification; this is the shape.
 1. **Title and one italic line.** A descriptive title naming subject
    and scope. Under it, one italic line: who the report is for and the
    evidence cut-off date. No headline with a verb and a stake.
-2. **The lead (two or three paragraphs, no heading).** The first
-   sentence states the controlling finding in words a reader could
-   repeat at lunch. The next sentences give the two or three facts
-   that most shape the decision. One paragraph says what the body
-   covers and what lives in the appendix. If a premise of the brief
-   was wrong (a date, an unverifiable claim), one sentence here says
-   so. Never open with "This report examines" or a list of the
-   brief's areas in order.
-3. **Key numbers.** A small table of four to six figures, each with a
+2. **`## TL;DR`.** Directly under the italic line, before the lead.
+   Six to eight bullets, 120 to 220 words in all. Each bullet opens
+   with a bold lead of two to eight words that could stand alone as
+   the finding, then one or two sentences of the evidence behind it
+   with its footnote marker. The first bullet is the controlling
+   finding. One bullet names the opening or the decision the evidence
+   points at. If a premise of the brief was wrong (a date, an
+   unverifiable claim), the last bullet says so. A reader who stops
+   here has the report.
+3. **The lead (two paragraphs, no heading, 120 to 250 words).** The
+   first sentence restates the controlling finding in words a reader
+   could repeat at lunch, then the one or two facts that most shape
+   the decision. The second paragraph says what the body covers and
+   what lives in the appendix. Never open with "This report examines"
+   or a list of the brief's areas in order.
+4. **Key numbers.** A small table of four to six figures, each with a
    five-to-eight-word meaning. This is the only place figures stack.
-4. **Numbered body sections, at most six.** Short noun-phrase H2s
+5. **Numbered body sections, at most six.** Short noun-phrase H2s
    ("## 3. What vendors sell to operators"), never a sentence, never
    an "X, not Y" pair. Each section carries one idea in 300 to 600
-   words and opens with a sentence that makes a claim worth testing.
+   words. It opens with a finding paragraph of at most 70 words that
+   makes a claim worth testing. The evidence that follows is
+   structured for the skim: bullets with bold run-in leads for
+   parallel instances, a table when three or more things are compared
+   on two or more dimensions, bold sentence-case sub-headings on their
+   own line when a section has two or three distinct parts. A short
+   closing paragraph carries the judgment. Never more than two
+   consecutive prose paragraphs without a bullet list, table or run-in
+   lead between them; no paragraph over 90 words.
    `required_section_headings` lists the topics the brief named; if
    there are more than six, group them under six headings and let the
    appendix keep the brief's full order. H3s only when a section has
    two genuinely separate parts; number them ("### 2.1").
-5. **One callout: `### What would change this reading`.** Three to
+6. **One callout: `### What would change this reading`.** Three to
    five bullets, each naming a specific event, document or number and
    what it would shift. This is the only place "what would settle it"
    appears. Body sections do not end with settle-it sentences.
-6. **Options (only when the brief asks about choices).** `## Options`
-   or the query's own wording. Each option as a bold run-in lead, then
-   one short paragraph: the precedent behind it, what it would take,
-   what stands against it. Described, not ranked. A table may
+7. **Options (only when the brief asks about choices).** `## Options`
+   or the query's own wording. Each option as a bold run-in lead on
+   its own line, then two indented bullets: "Precedent" (what shows
+   the shape works and for whom) and "Against it" (what stands in the
+   way). Described, not ranked. A table may
    summarise them when there are more than three. No "X should" unless
    the query asks for advice. A "Dates to watch" table may follow when
    the subject has a calendar.
-7. **Closing (one or two paragraphs, `## Closing` or `## Outlook`).**
+8. **Closing (one or two short paragraphs, `## Closing` or `## Outlook`).**
    Return to the controlling finding, add the one thing that is new or
-   unresolved, stop. A sourced quotation from a named person may close
+   unresolved, stop. Where the evidence concentrates in a few places,
+   list them as bullets. A sourced quotation from a named person may close
    it when the quote carries evidence. No summary sentence, no turn,
    no stinger.
-8. **`## Notes`.** Numbered footnotes. Each is the source: author or
+9. **`## Notes`.** Numbered footnotes. Each is the source: author or
    organisation, title, date, and the vault link or URL. A footnote
    may add one sentence of detail that did not belong in the body.
-9. **`## Further reading`.** Eight to fifteen links under two or three
+10. **`## Further reading`.** Eight to fifteen links under two or three
    plain headings, each with a one-line note on why it is worth the
    reader's time. The first entry links the appendix file.
 
@@ -171,8 +188,8 @@ serves reference rather than decision. It can be as long as the
 material needs. It uses the same prose register for any connecting
 text, and the brief's full section order.
 
-For `short` format, items 3, 5 and 6 collapse into the lead and the
-closing. For `structured` format the frame holds and body sections may
+For `short` format, items 4, 6 and 7 collapse into the lead and the
+closing; the TL;DR stays. For `structured` format the frame holds and body sections may
 lean on tables and bullets, within the row and column caps below.
 
 ## Prose rules (the working subset of STYLE-GUIDE.md)
@@ -213,10 +230,27 @@ lean on tables and bullets, within the row and column caps below.
   whole story", "in short, X". No rhetorical questions, no stingers,
   no metaphors that carry an argument, no personification.
 - **Enumerate arguments in prose, facts in bullets.** "One reading
-  is... A second... A third" for reasoning. Bullets for lists a reader
-  scans. Tables compare three or more things on two or more dimensions
-  and run at most eight rows by five columns in the body; longer
-  tables go to the appendix.
+  is... A second... A third" for reasoning that has to be followed.
+  Bullets for everything a reader would otherwise scan for:
+  instances, precedents, rules, quotations, places where the evidence
+  concentrates. Tables compare three or more things on two or more
+  dimensions and run at most eight rows by five columns in the body;
+  longer tables go to the appendix.
+- **Build the page for the skim.** A reader who reads only the TL;DR,
+  the bold leads and the tables should come away with the finding and
+  the evidence behind it; the prose between them is for the reader
+  who wants to know why. Every bullet opens with a bold lead of two to
+  eight words that states the point, then the sentence that supports
+  it. A quotation sits in its own bullet with the speaker's name and
+  role in the bold lead. Where a paragraph holds three or more
+  parallel instances, break it into bullets. Where it holds a short
+  list of consequences, indent them under the sentence that
+  introduces them. Keep the voice in the bullets: a bullet is still a
+  sentence with a verb, not a label.
+- **Keep paragraphs short.** Opening and closing paragraphs of a
+  section are 40 to 70 words. No paragraph in the body exceeds 90
+  words. A paragraph that wants to be longer is two paragraphs or a
+  list.
 - **Draft warm, then cool.** Write pass 1 in the first person, then
   strip the "I"s in pass 2. Third person in the shipped text, present
   tense for the state of play, past tense for events. No em-dashes.
@@ -229,12 +263,15 @@ Write to `pass1_output_path`. This is the first integrated draft. It is
 permitted to be uneven — pass 2 cleans it up. Goals for pass 1:
 
 1. **Honor the structure (HARD GATE).** Follow "The report frame"
-   above: title and italic line, the lead with the controlling finding
-   in its first sentence, key numbers, at most six numbered noun-phrase
-   H2s covering the `required_section_headings` topics in order (grouped
-   if there are more than six), the "What would change this reading"
-   callout, options when the brief asks, the closing, then Notes and
-   Further reading. The finding sits in each section's first sentence.
+   above: title and italic line, the `## TL;DR` block, the lead with
+   the controlling finding in its first sentence, key numbers, at most
+   six numbered noun-phrase H2s covering the `required_section_headings`
+   topics in order (grouped if there are more than six), the "What
+   would change this reading" callout, options when the brief asks,
+   the closing, then Notes and Further reading. The finding sits in
+   each section's first sentence, and each section carries its
+   evidence in bullets with bold leads or a table, not in unbroken
+   prose.
 2. **Write in your voice, warm then cool.** Draft pass 1 in the first
    person as one expert explaining the evidence to a peer who has to
    decide. Pass 2 strips the "I"s; the warmth stays. Factual, clear,
@@ -296,7 +333,8 @@ Pass 1 length target: `length_budget_words` from the decomposition
 
 | Element | Budget |
 |---|---|
-| Lead | 250 to 400 words |
+| TL;DR | 120 to 220 words, six to eight bullets |
+| Lead | 120 to 250 words |
 | Body sections | 300 to 600 words each, six at most |
 | Callout and options | 300 to 500 words together |
 | Closing | 100 to 200 words |
@@ -423,13 +461,23 @@ Before writing pass 2, scan pass 1 for these elements. Pass 2 is the
 last chance to add them; the polish auditor only cuts and the
 readability recommender only suggests.
 
-- **The report frame.** Descriptive title, italic line, a lead whose
-  first sentence is the controlling finding, a key-numbers table, at
-  most six numbered noun-phrase H2s, the "What would change this
-  reading" callout, options when the brief asks, a closing, `## Notes`,
-  `## Further reading` with the appendix as its first link. If any is
-  missing, a heading is a sentence or an "X, not Y" pair, or the report
-  ends on a stinger, fix it in pass 2.
+- **The report frame.** Descriptive title, italic line, a `## TL;DR`
+  of six to eight bold-led bullets whose first bullet is the
+  controlling finding, a lead whose first sentence restates it, a
+  key-numbers table, at most six numbered noun-phrase H2s, the "What
+  would change this reading" callout, options when the brief asks
+  (each with its "Precedent" and "Against it" bullets), a closing,
+  `## Notes`, `## Further reading` with the appendix as its first
+  link. If any is missing, a heading is a sentence or an "X, not Y"
+  pair, or the report ends on a stinger, fix it in pass 2.
+- **Structural density.** Walk each body section. If it has three or
+  more consecutive prose paragraphs, or any paragraph over 90 words,
+  or carries three or more parallel instances inside one paragraph,
+  restructure in pass 2: bullets with bold run-in leads, a table
+  within eight rows by five columns, or a bold sentence-case
+  sub-heading. The sentences stay; only their arrangement changes. A
+  reader who reads only the TL;DR, the bold leads and the tables must
+  get the finding and its evidence.
 - **Body budget.** Body words within `length_budget_words`. Over
   budget: move reference material to the appendix before cutting
   anything else.

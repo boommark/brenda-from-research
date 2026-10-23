@@ -249,16 +249,22 @@ prose (no comparison table), emit:
 
 **Check R5: Report frame and budget (see STYLE-GUIDE.md at the vault root).**
 If `response_format` is `"analytical"` or `"structured"` and the report
-lacks any of: an italic line under the title; a lead whose first
-sentence states the controlling finding (not "This report examines");
-a key-numbers table; numbered body H2s with short noun-phrase headings
+lacks any of: an italic line under the title; a `## TL;DR` directly
+under it of six to eight bold-led bullets whose first bullet states
+the controlling finding (a TL;DR that exists but opens on something
+other than the controlling finding counts as missing); a lead whose
+first sentence restates the controlling finding (not "This report
+examines"); a key-numbers table; numbered body H2s with short noun-phrase headings
 (at most six); one `### What would change this reading` callout;
 `## Options` when the query asks about choices; a closing; `## Notes`;
 `## Further reading` linking the appendix; or if any body heading is a
-sentence or an "X, not Y" pair; or if the body (title through closing)
-exceeds `length_budget_words` from the decomposition by more than ten
-percent, emit:
-  - `failure_mode`: `"missing-frame-section"` (or `"over-budget"`)
+sentence or an "X, not Y" pair; or if any body section runs three or
+more consecutive prose paragraphs with no bullet list, table or bold
+run-in lead between them (`"unskimmable-section"`); or if the body
+(title through closing) exceeds `length_budget_words` from the
+decomposition by more than ten percent, emit:
+  - `failure_mode`: `"missing-frame-section"` (or `"over-budget"`,
+    or `"unskimmable-section"`)
   - `severity`: `major`
   - `recommendation`: name the missing frame element(s) and what
     content from the draft or interim notes should fill each. For

@@ -111,8 +111,15 @@ Concretely:
       register (see `STYLE-GUIDE.md` at the vault root): a named
       instance rather than an abstraction, one figure per sentence,
       calibration in words rather than a label, no "Confidence is",
-      no "what would settle it" outside the callout. Match the
-      existing citation mechanics: a `[^N]` footnote marker after the
+      no "what would settle it" outside the callout. Keep the
+      structure the reader skims: a new instance joins the bullet
+      list it belongs to, as its own bullet with a bold lead of two
+      to eight words; a new comparison point goes into the existing
+      table's row; a fix to the controlling finding is mirrored in
+      the `## TL;DR` first bullet. Do not add a prose paragraph where
+      the section carries its evidence in bullets, and do not push
+      any paragraph over 90 words. Match the existing citation
+      mechanics: a `[^N]` footnote marker after the
       verb or noun, one per claim, with a matching entry appended to
       the `## Notes` block (`[[<source-note-id>]]` inside the entry for
       `"wikilink"`, the URL for `"inline"`); no markers for `"none"`.

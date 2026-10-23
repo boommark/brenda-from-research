@@ -286,9 +286,27 @@ Look for:
 - More than one figure in a sentence: keep the one that changes the
   meaning; move the others to the footnote or cut them.
 - **Body bold.** Bold is allowed only on run-in list leads (the first
-  few words of a bullet or of a numbered item). Unbold every other
-  bold phrase, including "**The bottom line:**" style labels; keep the
-  sentence as plain prose.
+  few words of a bullet or of a numbered item), on option names on
+  their own line, and on sentence-case sub-headings that stand on
+  their own line inside a section. Unbold every other bold phrase,
+  including "**The bottom line:**" style labels; keep the sentence as
+  plain prose.
+- **Prose runs (skimmability).** Walk each body section. Flag any run
+  of three or more consecutive prose paragraphs and any paragraph over
+  90 words. Where the run holds three or more parallel instances
+  (companies, precedents, rules, quotations), convert them to bullets,
+  each opening with a bold lead of two to eight words that states the
+  point, then the sentence as written. A quotation becomes its own
+  bullet with the speaker's name and role in the lead. Where a
+  paragraph is simply long, break it at its hinge. Never alter
+  meaning, drop a footnote marker or change the order of evidence;
+  only the arrangement changes. If restructuring would need new
+  sentences (a table from scratch, a sub-heading the section lacks),
+  log an escalation instead.
+- **TL;DR present.** The report opens with a `## TL;DR` of six to
+  eight bold-led bullets directly under the italic line. If it is
+  missing, or its first bullet is not the controlling finding, log an
+  escalation; do not write it yourself.
 - **Headings.** Body H2s are numbered short noun phrases ("## 3. What
   vendors sell to operators"). Keep the numbers. If a heading is a
   sentence or an "X, not Y" pair, rewrite it as the topic noun phrase

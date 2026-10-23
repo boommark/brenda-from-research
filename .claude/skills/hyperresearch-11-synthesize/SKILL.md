@@ -119,14 +119,17 @@ Write `research/temp/synthesis-outline.md`. This is the per-section contract —
 ## Title and italic line
 <a descriptive title naming subject and scope; an italic line with audience and evidence cut-off date>
 
+## TL;DR
+<six to eight bullets, each a bold lead of two to eight words then the evidence with its marker; first bullet the controlling finding; one bullet the opening or decision the evidence points at; last bullet any correction to the brief's premises>
+
 ## Lead (no heading in the report)
-<the controlling finding as sentence one; the two or three facts that most shape the decision; one paragraph on what the body covers and what the appendix holds; any correction to the brief's premises in one sentence>
+<two paragraphs: the controlling finding restated as sentence one with the one or two facts that most shape the decision; then what the body covers and what the appendix holds>
 
 ## Key numbers
 <four to six figures, each with a five-to-eight-word meaning>
 
 ## 1. <First body H2 as a short noun-phrase topic>
-<1-2 sentences: the claim this section opens on, which evidence anchors it, the named instances, what contested point lives here and how it is presented; H3s only if two genuinely separate parts>
+<1-2 sentences: the claim this section opens on, which evidence anchors it, the named instances, what contested point lives here, and which structural device carries the evidence (bullets with bold leads, a table within eight by five, bold sub-headings); H3s only if two genuinely separate parts>
 
 ## 2. <Second body H2>
 <1-2 sentences>
@@ -137,10 +140,10 @@ Write `research/temp/synthesis-outline.md`. This is the per-section contract —
 <three to five bullets: the event, document or number, and what it would shift>
 
 ## Options (only when the query asks about choices)
-<each option with its precedent, what it would take, what stands against it; described, never ranked; a summary table if more than three; a dates-to-watch table if the subject has a calendar>
+<each option as a bold lead on its own line with two indented bullets, "Precedent" and "Against it"; described, never ranked; a summary table if more than three; a dates-to-watch table if the subject has a calendar>
 
 ## Closing
-<one or two paragraphs: return to the controlling finding, add the one new or unresolved thing; may end on a sourced quote because it carries evidence; never a stinger or a summary sentence>
+<one or two short paragraphs: return to the controlling finding, add the one new or unresolved thing; bullets where the evidence concentrates in a few places; may end on a sourced quote because it carries evidence; never a stinger or a summary sentence>
 
 ## Notes
 <footnotes, one per claim, carrying the source and the [[note-id]] (wikilink) or URL (inline)>
@@ -250,10 +253,11 @@ When the synthesizer returns:
 
 3. **Sanity checks on the final report:**
    - Body (title through closing, excluding Notes, Further reading and the appendix) is within `length_budget_words` plus ten percent; `short` format within its own range
-   - Lead opens on the controlling finding (not "This report examines"); key-numbers table present; at most six numbered noun-phrase body H2s covering every `required_section_headings` topic; one `### What would change this reading` callout; `## Options` only if the query asked about choices; a closing; `## Notes`; `## Further reading` with the appendix first
+   - `## TL;DR` directly under the italic line, six to eight bold-led bullets, first bullet the controlling finding; lead opens on the controlling finding (not "This report examines"); key-numbers table present; at most six numbered noun-phrase body H2s covering every `required_section_headings` topic; one `### What would change this reading` callout; `## Options` only if the query asked about choices; a closing; `## Notes`; `## Further reading` with the appendix first
    - Citations match `citation_style`: `[^N]` markers in the body and a `## Notes` block carrying `[[note-id]]` for `"wikilink"` or URLs for `"inline"`; no markers for `"none"`; no `[[...]]` in body sentences; no chains of markers; every marker resolves
    - No "Confidence is" labels, no per-section settle-it lines, no glossary paragraph, no first person
    - No body table over eight rows or five columns
+   - No body section with three or more consecutive prose paragraphs; no paragraph over 90 words; every bullet opens with a bold lead
    - No YAML frontmatter, no scaffold leaks, no pipeline vocabulary
 
 If pass 2 is longer than pass 1 (positive delta), something went wrong — pass 2 is supposed to cut. Investigate before proceeding.

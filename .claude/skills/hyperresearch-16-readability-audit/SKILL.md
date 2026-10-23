@@ -77,7 +77,7 @@ When the recommender returns:
 2. **Read the recommender's report-back.** It tells you:
    - Body word count against `length_budget_words`
    - Total count of recommendations
-   - Breakdown by category (move-to-appendix, remove-tic, heading-style, merge-paragraphs, break-paragraph, make-list, make-table, bold-keyterms, split-sentence, remove-hr, add-whitespace)
+   - Breakdown by category (move-to-appendix, add-tldr, prose-run, bold-lead, remove-tic, heading-style, merge-paragraphs, break-paragraph, make-list, make-table, bold-keyterms, split-sentence, remove-hr, add-whitespace)
    - Highest-severity issue
    - Expected net char delta if all applied
 
@@ -90,8 +90,11 @@ You are not obligated to apply every recommendation. Use these heuristics:
 **Apply confidently:**
 - All `move-to-appendix` recommendations when the body is over `length_budget_words`: cut the block from the body, append it to `research/notes/appendix_<vault_tag>.md` under the matching heading, and leave the pointer sentence. Make sure Further reading links the appendix.
 - All `remove-tic` recommendations ("Confidence is" labels, settle-it lines outside the callout, paragraph-ending markers moved inside the sentence)
+- `add-tldr` when the report has no `## TL;DR`: insert the recommended block directly under the italic line after checking that its first bullet is the controlling finding from the lead and every bullet has a bold lead and a marker
+- `prose-run` recommendations where the `recommended` text keeps every sentence and marker of the `current` text and only rearranges them into bullets or shorter paragraphs
+- `bold-lead` recommendations (zero risk when the sentence after the lead is unchanged)
 - All `merge-paragraphs` recommendations where adjacent paragraphs are clearly the same sub-topic (rationale field confirms this)
-- All `break-paragraph` recommendations on paragraphs > 800 CJK / 1500 EN chars
+- All `break-paragraph` recommendations on paragraphs over 600 CJK / 560 EN chars (about 90 words)
 - All `remove-hr` recommendations (horizontal rules don't belong in research reports)
 - All `add-whitespace` recommendations (zero risk)
 - `make-table` recommendations when the prose-comparison passage cited 3+ entities × 2+ dimensions, the suggested table preserves all comparison points, and it fits eight rows by five columns
@@ -125,7 +128,7 @@ For each recommendation you decide to apply:
 
 **Order of application:**
 0. `move-to-appendix` first (largest changes; the rest of the anchors are then stable)
-1. `remove-hr` and `remove-tic` (small changes, clean baseline)
+1. `remove-hr`, `remove-tic` and `bold-lead` (small changes, clean baseline)
 2. `merge-paragraphs` and `break-paragraph` (paragraph-level changes)
 3. `make-list` and `make-table` (structural conversions)
 4. `bold-keyterms` (within paragraphs that survived the merges/breaks)

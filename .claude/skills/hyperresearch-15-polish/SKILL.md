@@ -71,6 +71,8 @@ The polish auditor strips:
 - Citation chains, reduced to one marker per claim
 - Redundant sentences / paragraphs that restate prior content
 - Run-on sentences and over-long paragraphs (breaks into smaller units via Edit)
+- Prose runs: three or more consecutive prose paragraphs, or any paragraph over 90 words, rearranged into bullets with bold leads or broken at the hinge, with no change of meaning or evidence order
+- A missing or mis-led `## TL;DR` (logged as an escalation, not written by the auditor)
 
 It does not cut evidence to meet the body budget; it logs an escalation naming what should move to the appendix.
 
@@ -80,7 +82,7 @@ It does not cut evidence to meet the body budget; it logs an escalation naming w
 
 The polish auditor ESCALATES structural mismatches (wrong format for the prompt, missing required sections, etc.) rather than fabricating content to fix them. Read the escalations in the polish log.
 
-If the escalation names a structural issue (e.g., "user asked for a ranked list; draft is unranked prose"), you have one shot to fix it: craft the restructure yourself with hand-written Edits, then ship. If the escalation says the body is over `length_budget_words`, move the named blocks to `research/notes/appendix_<vault_tag>.md` (cut from the body, append to the appendix, leave a one-sentence pointer) rather than deleting them. If the escalation says open points were stripped and no callout exists, add the `### What would change this reading` callout yourself from those points, before the options or closing.
+If the escalation names a structural issue (e.g., "user asked for a ranked list; draft is unranked prose"), you have one shot to fix it: craft the restructure yourself with hand-written Edits, then ship. If the escalation says the body is over `length_budget_words`, move the named blocks to `research/notes/appendix_<vault_tag>.md` (cut from the body, append to the appendix, leave a one-sentence pointer) rather than deleting them. If the escalation says open points were stripped and no callout exists, add the `### What would change this reading` callout yourself from those points, before the options or closing. If the escalation says the `## TL;DR` is missing or does not open on the controlling finding, write it yourself from the lead, the key numbers and the section openers: six to eight bullets, each a bold lead of two to eight words then one or two sentences with its marker, directly under the italic line. If the escalation names a section that needs a table or sub-heading the auditor could not build, build it from the section's own sentences.
 
 **Sanity-check net length.** Polish should have NEGATIVE net char delta. If the polish log shows positive net chars added, something went wrong — polish is for cutting, not expanding.
 

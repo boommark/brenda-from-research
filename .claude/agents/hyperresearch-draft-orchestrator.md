@@ -120,15 +120,21 @@ Write your complete draft to `output_path`. Your draft must:
   answered, every entity addressed, every required format honored.
 - **Use the report frame (read `STYLE-GUIDE.md` at the vault root
   before writing).** A descriptive title naming subject and scope, an
-  italic line with audience and evidence cut-off date, a lead of two or
-  three paragraphs whose first sentence states the controlling finding
+  italic line with audience and evidence cut-off date, a `## TL;DR`
+  of six to eight bullets (each a bold lead of two to eight words then
+  one or two sentences of evidence with its marker; the first bullet
+  is the controlling finding, one names the opening the evidence
+  points at, the last carries any premise correction), a lead of two
+  paragraphs whose first sentence restates the controlling finding
   (no heading, never "This report examines"), a key-numbers table of
   four to six figures, the body H2s numbered in order with short
   noun-phrase headings and the finding in each section's first
-  sentence, one `### What would change this reading` callout of three
-  to five bullets, `## Options` (only when the query asks about
-  choices; bold run-in option, then the precedent, the requirement and
-  the obstacle; described, never ranked), a short `## Closing`, then
+  paragraph (at most 70 words), one `### What would change this
+  reading` callout of three to five bullets, `## Options` (only when
+  the query asks about choices; bold run-in option on its own line,
+  then two indented bullets "Precedent" and "Against it"; described,
+  never ranked), a short `## Closing` (bullets where the evidence
+  concentrates in a few places), then
   `## Notes` (footnotes) and `## Appendix material` (see below). No
   sentence-style or "X, not Y" headings, no hinges, metaphors or
   stingers; "operator" rather than "telco" outside quotes.
@@ -145,6 +151,14 @@ Write your complete draft to `output_path`. Your draft must:
   absence of evidence as a fact in one clause. Even stance: observation,
   not verdict. Bold only on run-in list leads. No em-dashes. No first
   or second person in the draft you hand over.
+- **Structure for the skim.** After a section's opening paragraph,
+  carry the evidence in bullets with bold run-in leads (parallel
+  instances, precedents, rules), a table when three or more things
+  compare on two or more dimensions, or a bold sentence-case
+  sub-heading when the section has two or three distinct parts. A
+  quotation gets its own bullet with the speaker's name and role in
+  the lead. Never three prose paragraphs in a row; no paragraph over
+  90 words. Bullets are still sentences with verbs, in the same voice.
 - **Appendix material.** Any table over eight rows or five columns,
   any per-entity profile and any matrix goes under a final
   `## Appendix material` H2, not in the body. The synthesizer moves it

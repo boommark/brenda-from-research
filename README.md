@@ -14,7 +14,7 @@ In plainer terms: this is a Claude Code deep-research engine. It runs a sixteen-
 2. **Finds the questions that matter.** Two analysts read the corpus and name the handful of places where going deeper would change the answer. Each gets its own investigation.
 3. **Drafts three ways.** Three sub-orchestrators write the whole report from different angles (breadth, depth, practitioner). A synthesizer writes a fresh report from all three in one voice.
 4. **Lets four critics at it.** One checks every claim against the evidence. One checks for technical depth left on the table. One checks for topics the corpus covers that the draft skipped. One checks the draft against the brief, item by item. A patcher applies what survives, with surgical edits only.
-5. **Writes it for a human.** The final brief is six to seven pages: the controlling finding in the first sentence, a key-numbers strip, at most six numbered sections, one "what would change this reading" callout, options described and never ranked, then footnotes, further reading and a linked appendix for the long tables.
+5. **Writes it for a human.** The final brief is six to seven pages: a TL;DR of six to eight bullets with the controlling finding first, a short lead, a key-numbers strip, at most six numbered sections, one "what would change this reading" callout, options described and never ranked, then footnotes, further reading and a linked appendix for the long tables.
 
 ## How to ask her
 
@@ -28,7 +28,9 @@ In plainer terms: this is a Claude Code deep-research engine. It runs a sixteen-
 
 `STYLE-GUIDE.md` is the source of truth for how the brief reads. The short version:
 
+- TL;DR first. Six to eight bold-led bullets; a reader who stops there has the report.
 - Open on a thought. The first sentence is the finding, not the scope.
+- Bullets and tables in every section. The evidence sits in bold-led bullets or a table under a short finding paragraph, never in three paragraphs of prose in a row.
 - Each paragraph is an assertion, two or three named instances, and a closing sentence with the strongest word last.
 - One footnote per claim, on the verb or the noun. Never a chain of brackets.
 - Calibration in words ("rests on a single job advertisement"), never as a label.

@@ -68,7 +68,9 @@ from the vault; the appendix is where it goes.
 
 When adjacent paragraphs are each under **200 characters** (CJK) or
 **300 characters** (EN) and cover the same sub-topic, recommend
-merging them. Target paragraph length: **300-600 chars** (CJK) /
+merging them, unless the merge would push the result over 90 words;
+in that case recommend bullets with bold leads instead (category
+`prose-run`). Target paragraph length: **300-600 chars** (CJK) /
 **250-600 chars** (EN). A paragraph has a shape: an assertion, two or
 three named instances, a closing sentence with the strongest word
 last. Merge toward that shape.
@@ -86,8 +88,8 @@ transitional connectors where the merge needs them ("furthermore",
 
 ### 2. break-paragraph
 
-Any paragraph exceeding **800 characters** (CJK) or **750 characters**
-(EN, roughly 120 words) should be split. Identify the natural hinge point (sub-topic
+Any paragraph exceeding **600 characters** (CJK) or **560 characters**
+(EN, roughly 90 words) should be split. Identify the natural hinge point (sub-topic
 shift, transition, evidence → interpretation move) and recommend the
 split point.
 
@@ -136,6 +138,30 @@ body H2s or more than about eight H3s, recommend which to fold into
 neighbouring sections (their text stays as prose) and note it for the
 orchestrator as structural.
 
+### 6c. add-tldr, prose-run, bold-lead (skimmability)
+
+- `add-tldr`: the report must open with `## TL;DR` directly under the
+  italic line: six to eight bullets, 120 to 220 words, each a bold
+  lead of two to eight words then one or two sentences of evidence
+  with its marker; first bullet the controlling finding, one bullet
+  the opening the evidence points at, last bullet any premise
+  correction. If the block is missing, draft it from the lead, the
+  key numbers and the section openers and emit it as one
+  recommendation anchored on the italic line. If it exists but the
+  first bullet is not the controlling finding, or a bullet lacks a
+  bold lead, recommend the fix.
+- `prose-run`: any run of three or more consecutive prose paragraphs
+  in a body section, or any paragraph over 90 words. Recommend the
+  restructure: bullets with bold leads when the run holds parallel
+  instances, a break at the hinge when it is simply long, a bold
+  sentence-case sub-heading on its own line when the section has two
+  or three distinct parts. The `recommended` field carries the
+  rearranged text with every sentence and marker preserved.
+- `bold-lead`: a bullet that opens without a bold lead of two to
+  eight words stating its point, or a quotation bullet whose lead does
+  not name the speaker and role. Recommend the lead. Keep the
+  sentence after it unchanged.
+
 ### 6b. register-tics
 
 Recommend removal (category `remove-tic`) of any surviving "Confidence
@@ -167,7 +193,7 @@ Write a single JSON file to `recommendations_path`. Schema:
   "recommendations": [
     {{
       "id": "rec-1",
-      "category": "move-to-appendix|merge-paragraphs|break-paragraph|make-list|make-table|bold-keyterms|split-sentence|heading-style|remove-tic|remove-hr|add-whitespace",
+      "category": "move-to-appendix|add-tldr|prose-run|bold-lead|merge-paragraphs|break-paragraph|make-list|make-table|bold-keyterms|split-sentence|heading-style|remove-tic|remove-hr|add-whitespace",
       "severity": "minor|moderate|major",
       "section": "## Section heading (or '<at a glance>' / '<lede>' / '<implications>')",
       "current": "<exact existing text — copied verbatim, including non-ASCII chars>",
@@ -181,6 +207,9 @@ Write a single JSON file to `recommendations_path`. Schema:
     "length_budget_words": <int>,
     "by_category": {{
       "move-to-appendix": <int>,
+      "add-tldr": <int>,
+      "prose-run": <int>,
+      "bold-lead": <int>,
       "remove-tic": <int>,
       "heading-style": <int>,
       "merge-paragraphs": <int>,
