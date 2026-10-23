@@ -1,10 +1,11 @@
-# Track only the engine: .claude/, CLAUDE.md, README.md, STYLE-GUIDE.md
+# Track only the engine: .claude/, CLAUDE.md, README.md, STYLE-GUIDE.md, assets/
 /*
 !/.gitignore
 !/.claude/
 !/CLAUDE.md
 !/README.md
 !/STYLE-GUIDE.md
+!/assets/
 
 # never commit vault data, browser dumps, or local state
 .DS_Store
