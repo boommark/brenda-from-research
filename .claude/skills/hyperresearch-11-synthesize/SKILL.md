@@ -16,7 +16,7 @@ description: >
 
 **Goal:** turn the 3 angle-specific drafts from step 10 into ONE integrated final report at `research/notes/final_report_<vault_tag>.md`. The orchestrator preps the strategic brief; the synthesizer subagent writes the report in two passes (rough integrated draft, then voice/redundancy/length cleanup).
 
-**Why split orchestrator + synthesizer:** the orchestrator has been running for 30+ minutes and 200K+ tokens of context. Writing a coherent 5000-10000 word report at this point is the highest cognitive load step in the pipeline, and orchestrator context is full of stale subagent dispatch logic. The synthesizer is a fresh Opus session with `[Read, Write]` tool-lock, focused exclusively on producing the final report. This is the same architectural move that made the patcher and polish-auditor reliable.
+**Why split orchestrator + synthesizer:** the orchestrator has been running for 30+ minutes and 200K+ tokens of context. Writing a coherent six-to-seven-page report in one human voice, plus its appendix, is the highest cognitive load step in the pipeline, and orchestrator context is full of stale subagent dispatch logic. The synthesizer is a fresh Opus session with `[Read, Write]` tool-lock, focused exclusively on producing the final report. This is the same architectural move that made the patcher and polish-auditor reliable.
 
 ---
 
@@ -96,8 +96,15 @@ Write `research/temp/synthesis-plan.md`. This is your strategic brief for the sy
 
 ## Length target
 - response_format: <short|structured|analytical>
-- Pass 1 target: <middle of pass-1 range>
-- Pass 2 final target: <middle of pass-2 range>
+- length_budget_words: <from the decomposition, default 3000>; long_form: <true|false>
+- Pass 1 target: <budget plus up to 20 percent>
+- Pass 2 final target: <within budget; body only, excluding Notes, Further reading and the appendix>
+
+## Appendix plan
+<which tables, per-entity profiles and matrices from the three drafts go to research/notes/appendix_<vault_tag>.md, and the one-sentence pointer each leaves in the body>
+
+## Controlling finding
+<one sentence a reader could repeat at lunch; this is the first sentence of the report's lead and the thing the closing returns to>
 ```
 
 ---
@@ -109,37 +116,40 @@ Write `research/temp/synthesis-outline.md`. This is the per-section contract —
 ```markdown
 # Synthesis outline
 
-## Title and dek
-<the working title (a verb and a stake) and the one-sentence dek with the sharpest number>
+## Title and italic line
+<a descriptive title naming subject and scope; an italic line with audience and evidence cut-off date>
 
-## At a glance
-<the 3-5 one-sentence findings, each with its number and source>
+## Lead (no heading in the report)
+<the controlling finding as sentence one; the two or three facts that most shape the decision; one paragraph on what the body covers and what the appendix holds; any correction to the brief's premises in one sentence>
 
-## Lede
-<the scene, dated event or surprising fact the report opens on, and the nut graf's plain answer>
+## Key numbers
+<four to six figures, each with a five-to-eight-word meaning>
 
-## About the evidence
-<source count and mix, what the analysis excludes, figures that could not be verified, where evidence is thin>
+## 1. <First body H2 as a short noun-phrase topic>
+<1-2 sentences: the claim this section opens on, which evidence anchors it, the named instances, what contested point lives here and how it is presented; H3s only if two genuinely separate parts>
 
-## <First body H2, written as the finding it states>
-<1-2 sentences: what this section establishes, which evidence anchors it, the named example, what contested point lives here>
-
-## <Second body H2>
+## 2. <Second body H2>
 <1-2 sentences>
 
-...
+... (at most six body H2s; if the brief named more topics, say which are grouped together and which go to the appendix)
 
-## Open questions
-<2-4 questions the evidence leaves open, each with what would settle it>
+## What would change this reading (callout)
+<three to five bullets: the event, document or number, and what it would shift>
 
-## Implications
-<options with evidence for and against; action list only if the query asks; the closing turn and the quote or stinger the report ends on>
+## Options (only when the query asks about choices)
+<each option with its precedent, what it would take, what stands against it; described, never ranked; a summary table if more than three; a dates-to-watch table if the subject has a calendar>
 
-## Sources
-<only emitted when citation_style == "inline" — N numbered entries, deduplicated. For "wikilink" style (default), the wiki-link markers in the body are self-resolving and no separate Sources section is needed.>
+## Closing
+<one or two paragraphs: return to the controlling finding, add the one new or unresolved thing; may end on a sourced quote because it carries evidence; never a stinger or a summary sentence>
+
+## Notes
+<footnotes, one per claim, carrying the source and the [[note-id]] (wikilink) or URL (inline)>
+
+## Further reading
+<eight to fifteen links under two or three plain headings with a one-line note each; the appendix file first>
 ```
 
-The outline is short (50-200 words total). It's the structural anchor that prevents pass-1 sections from rambling.
+The outline is short (80-250 words total). It's the structural anchor that prevents pass-1 sections from rambling and keeps the body inside the budget.
 
 ---
 
@@ -188,26 +198,33 @@ prompt: |
   - evidence_digest_path: research/temp/evidence-digest.md
   - pass1_output_path: research/temp/synthesis-pass1.md
   - final_output_path: research/notes/final_report_<vault_tag>.md
+  - appendix_output_path: research/notes/appendix_<vault_tag>.md
+  - style_guide_path: STYLE-GUIDE.md
   - response_format: "<short|structured|analytical>"
   - citation_style: "<wikilink|inline|none>"
+  - length_budget_words: <from the decomposition, default 3000>
+  - long_form: <true|false>
 
-  Read everything. Write pass 1 to pass1_output_path. Then audit pass 1
-  for redundancy, voice consistency, weak sections, and length, and
-  write the cleaned pass 2 to final_output_path. Do not paste paragraphs
-  from the input drafts — synthesize them in your own voice.
+  Read STYLE-GUIDE.md, then everything else. Write pass 1 to
+  pass1_output_path, drafted warm (first person). Then audit pass 1 for
+  redundancy, voice, stance, weak sections and body length, strip the
+  first person, and write the cleaned pass 2 to final_output_path and
+  the reference material to appendix_output_path. Do not paste
+  paragraphs from the input drafts; synthesize them in your own voice.
 
   **Citation rendering:**
-  - If citation_style == "wikilink" (default): every citation is a
-    `[[note-id]]` marker pointing at the source note in the vault. No
-    separate `## Sources` section. The wiki-link IS the citation —
-    readers click through to the source note's frontmatter for title +
-    URL. Do NOT add numbered references.
-  - If citation_style == "inline": every citation is a `[N]` marker,
-    AND the report ends with a `## Sources` section listing each cited
-    source as `[N] Title. URL` (read each cited note's YAML frontmatter
-    for title + URL).
+  - If citation_style == "wikilink" (default): body prose carries
+    `[^N]` footnote markers, one per claim, after the verb or noun it
+    supports, never two in a sentence. The `## Notes` block after the
+    closing lists each as `[^N]: Author or organisation, "Title", date,
+    [[note-id]]`. The wiki-link inside the footnote IS the vault
+    citation; readers click through to the source note's frontmatter
+    for title + URL. No wiki-links in body sentences.
+  - If citation_style == "inline": the same `[^N]` markers, and the
+    `## Notes` entries carry `Author. "Title." Publication, Year. URL`
+    (read each cited note's YAML frontmatter for title + URL).
   - If citation_style == "none": no citation markers anywhere, no
-    Sources section.
+    Notes block.
 ```
 
 **CRITICAL: never emit bare text while the synthesizer is running.** It will take 5-15 minutes (two passes). Use the wait time to think — append notes to `research/temp/orchestrator-notes.md` about what you'll watch for in step 12 (the critics) based on the synthesis plan you just wrote.
@@ -218,21 +235,25 @@ prompt: |
 
 When the synthesizer returns:
 
-1. **Confirm both files exist:**
+1. **Confirm the files exist:**
    - `research/temp/synthesis-pass1.md` (pass 1, rough integrated)
    - `research/notes/final_report_<vault_tag>.md` (pass 2, final)
+   - `research/notes/appendix_<vault_tag>.md` (reference material; may be short if little was moved, but it should exist for full tier)
 
 2. **Read the synthesizer's report-back.** It tells you:
-   - Word/character count
-   - Pass 1 vs pass 2 length delta (should be NEGATIVE — pass 2 cuts)
+   - Body word count against `length_budget_words`
+   - Pass 1 vs pass 2 length delta (should be NEGATIVE; pass 2 cuts)
+   - What moved to the appendix
    - Top redundancies cut
    - Top voice fixes
    - Sections flagged as still weak
 
 3. **Sanity checks on the final report:**
-   - Length is in the target range for `response_format` (not 3x)
-   - Has all H2s from `required_section_headings`
-   - Citations match `citation_style`: `[[note-id]]` markers for `"wikilink"` (no Sources section); `[N]` markers + a `## Sources` section for `"inline"`; no markers for `"none"`
+   - Body (title through closing, excluding Notes, Further reading and the appendix) is within `length_budget_words` plus ten percent; `short` format within its own range
+   - Lead opens on the controlling finding (not "This report examines"); key-numbers table present; at most six numbered noun-phrase body H2s covering every `required_section_headings` topic; one `### What would change this reading` callout; `## Options` only if the query asked about choices; a closing; `## Notes`; `## Further reading` with the appendix first
+   - Citations match `citation_style`: `[^N]` markers in the body and a `## Notes` block carrying `[[note-id]]` for `"wikilink"` or URLs for `"inline"`; no markers for `"none"`; no `[[...]]` in body sentences; no chains of markers; every marker resolves
+   - No "Confidence is" labels, no per-section settle-it lines, no glossary paragraph, no first person
+   - No body table over eight rows or five columns
    - No YAML frontmatter, no scaffold leaks, no pipeline vocabulary
 
 If pass 2 is longer than pass 1 (positive delta), something went wrong — pass 2 is supposed to cut. Investigate before proceeding.
@@ -249,11 +270,12 @@ After this step, the final report is only modified by Edit hunks from the patche
 
 ## Exit criterion
 
-- `research/notes/final_report_<vault_tag>.md` exists, length in target range
+- `research/notes/final_report_<vault_tag>.md` exists, body within `length_budget_words`
+- `research/notes/appendix_<vault_tag>.md` exists and is linked from Further reading
 - `research/temp/synthesis-pass1.md` exists (debugging artifact)
-- All H2s from `required_section_headings` present
-- Citations match `citation_style` (wikilink → `[[note-id]]` no Sources section; inline → `[N]` + Sources section; none → no markers)
-- No YAML frontmatter, no pipeline vocabulary, no scaffold leaks
+- Every `required_section_headings` topic covered by the body H2s (at most six)
+- Citations match `citation_style` (`[^N]` markers plus a `## Notes` block; wikilink entries carry `[[note-id]]`, inline entries carry URLs; none means no markers)
+- No YAML frontmatter, no pipeline vocabulary, no scaffold leaks, no calibration labels
 
 ---
 

@@ -1,55 +1,88 @@
-# Report style guide: MIT / McKinsey / Wired
+# Report style guide: decision support, written by a human expert
 
-This is the house style for every final report the hyperresearch pipeline produces. It was derived on 2026-10-16 from a close reading of two McKinsey QuantumBlack articles (the AI value curve; the AI operating system), two MIT Sloan Ideas Made to Matter pieces (Eric So on AI and cognition; the Kaiser Permanente AI labor deal) and two Wired stories (AI agent hacks and liability; the Harvard survey on men overclaiming AI knowledge). The pipeline files under `.claude/` encode these rules; this document is the human-readable version.
+This is the house style for every final report the hyperresearch pipeline produces. It replaces the 2026-10-19 version. That version fixed the stance (calibrated, not argumentative; noun-phrase headings; options described, not ranked) but left prose that read like a methods appendix: bracketed citation chains, "Confidence is medium (about 65%)" labels after every section, stacked figures, forty-row tables, and reports of fourteen thousand words. The 2026-10-23 review set two new requirements. First, the writing must read as if a human expert wrote it, warm and factual, easy to follow. Second, the report is six to seven pages at most unless the brief says otherwise, with footnotes and further reading after it for anyone who wants to go deeper.
 
-The references set the tone and the architecture of the page. They do not lower the bar on technical precision, citation density or evidence rigor. Those stay exactly as they were.
+The reference exemplars are two essays by Eric Schmidt and co-authors: "Empires of AI" (Foreign Affairs, October 2026) and "AI for science needs reasoning, not just data" (MIT Technology Review, August 2026). Both are in the vault under the tag `writing-style`. The craft behind them is described in Zinsser's *On Writing Well*, Clark's *Writing Tools* and Strunk's *Elements of Style*, which are in the Book Brain. We borrow their sentences, not their stance. The exemplars argue a thesis; our reports help an expert decide. The argument is present but carried quietly by the evidence.
 
-## What the report is
+## What the report is for
 
-A factual, credible, engaging research report. It reveals what the evidence supports and how strongly. It does not argue a thesis, pick a side the evidence does not pick, or tell the reader's organization what to do unless the question asked for advice. Highly dubious claims are omitted, not defended. Where credible sources disagree, both sides' evidence is laid out and the disagreement is named.
+A decision-support document for a senior reader who knows the domain and has twenty minutes. It tells them what the evidence shows, how firmly, and what would change the picture. It does not tell them what to do unless the brief asks for advice. It does not defend a position. Where credible sources disagree, it lays both out and says which has the better evidence and why. It is selective: a twenty-page report is fodder for a chatbot, not for a human. Everything that does not earn its place in seven pages moves to the appendix or to a link.
 
 ## The shape of the page
 
-1. **Title and dek.** A title with a verb and a stake, not a topic label. Under it, one italic sentence carrying the sharpest number in the report.
-2. **At a glance.** Three to five one-sentence findings, each with its figure and its source. A reader who stops here has the answer.
-3. **Lede and nut graf.** The first sentence is a concrete scene, a dated event or a surprising specific fact. The nut graf answers the question in plain words.
-4. **About the evidence.** How many sources and of what kind, what the analysis excludes, which circulating figures could not be verified, where the evidence is thin. The investigators' confidence levels and boundary conditions live here.
-5. **Body sections.** Six to nine H2s. Each heading states its finding as a sentence or an "X, not Y" pair. No numbered hierarchy. Each section opens with a framing sentence, carries one named example with a count or date, may use a single one-line hinge paragraph before a reveal, and ends on a plain closing sentence.
-6. **Open questions.** Two to four questions the evidence does not settle, each with what would settle it.
-7. **Implications.** Options with the evidence for and against. An imperative action list only when the query asks for advice.
-8. **Close.** Two paragraphs that restate the central finding with a turn, ending on a sourced quote from a named person or a factual stinger. Never on a summary sentence.
+1. **Title and one italic line.** A descriptive title naming subject and scope. Under it, who the report is for and the evidence cut-off date.
 
-## The prose rules
+2. **The lead (two or three paragraphs, no heading).** The first sentence states the controlling finding in words a reader could repeat at lunch. The next sentences give the two or three facts that most shape the decision, then one paragraph on what the report covers and what it leaves to the appendix. No "This report examines". No list of the brief's eight areas in order. If a premise of the brief was wrong (a date, an unverifiable claim), say so here in one sentence.
 
-- Paragraphs 40 to 70 words, hard cap around 120. Sentences around 20 words.
-- Every percentage states its base. Every event carries its date. Every load-bearing claim carries a specific confidence phrase tied to the evidence, never a bare "may" or "could".
-- Quotes are whole sentences from named people with their title, roughly one per 150 words at most. Strong opinions belong to the named expert, not to the report. Vendor blog fragments become paraphrase with an inline link.
-- Absence is reported as a fact: no study exists, the figure could not be traced, the company did not respond.
-- Bold only on run-in list leads. No em-dashes. No first or second person. No editorial verbs.
-- Inline links on the claim, comparison tables for three or more entities on two or more dimensions, and definitions of technical terms on first use.
+3. **Key numbers strip.** Four to six figures in a small table, each with a five-to-eight-word meaning. This is the only place figures are stacked.
+
+4. **Numbered body sections, 1 to 6 at most.** Each has a short noun-phrase heading and carries one idea. The first paragraph states the finding plainly. The section runs 300 to 600 words. If the brief had eight areas, group them; the appendix keeps the brief's full order.
+
+5. **One callout, "What would change this reading".** Three to five bullets, each naming a specific event, document or number and what it would shift. This replaces the per-section "what would settle it" lines, which are no longer written.
+
+6. **Options, when the brief asks about choices.** Each option as a bold run-in lead, then one short paragraph: the precedent behind it, what it would take, what stands against it. Described, not ranked. A table may summarise them if there are more than three.
+
+7. **Closing (one or two paragraphs).** Return to the controlling finding, add the one thing that is genuinely new or unresolved, and stop. A sourced quotation from a named person may close it if it carries evidence.
+
+8. **Footnotes.** Numbered, after the body. Each footnote is the source: author or organisation, title, date, link. A footnote may add a sentence of detail that did not belong in the body.
+
+9. **Further reading.** Eight to fifteen links, grouped under two or three plain headings, each with a one-line note on why it is worth the reader's time. The full account tables, use-case matrices and tier lists live here as linked appendix files, not in the body.
+
+## The prose
+
+**Open on a thought.** Every section begins with a sentence that makes a claim worth testing, not with a definition, a scope statement or a date.
+
+**Give each paragraph a shape.** An assertion; two or three named, dated instances; a closing sentence that is the clearest statement of the point. The strongest word goes last. No paragraph ends on a bracket, a percentage or a citation.
+
+**Alternate the rhythm.** A long sentence carries the evidence; a short one carries the judgment. At least once per section, three short specifics in a row ("Cell lines drift. Chemicals have trace contaminants. Lab humidity changes.").
+
+**Anchor every abstraction.** No abstract noun (utilisation, sovereignty, capability, alignment) travels more than one sentence without a named instance. Prefer people doing things to nouns that describe conditions: "Singtel signed the contracts; the GPUs are not yet running" rather than "contracted utilisation exceeds billing utilisation".
+
+**Carry the evidence lightly.** One link per claim, placed on the verb or the noun as a footnote marker, never a chain of brackets. Never two sources in one sentence. When the source is a person, name them in the prose with their role, and let them carry the strong opinion. Quotes are whole sentences, at most one per 200 words.
+
+**Use numbers sparingly.** One figure per sentence, only when it changes the meaning, and always paired with what it means. Full dates belong in the footnote unless the date is the point. Percentages state their base once, in the footnote if the body already makes it clear.
+
+**Calibrate in words, not labels.** Write uncertainty into the sentence: "the one operator that has shown its working", "stays open for now", "rests on a single job advertisement". Do not write "Confidence is medium (about 65%)" or append "what would settle it" to a section. Absence is still reported as fact, in one clause.
+
+**Explain at the point of need.** Define a term in plain words the first time it does real work, in the sentence, once ("an agent is a reasoning model given access to tools"). No glossary paragraph.
+
+**Keep the stance even.** Observations, not verdicts. "It helps to know what the phrase is measuring" rather than "the gap is the whole story". The reader is a peer who will make the call; the report's job is to make the call easier. No "banned", "must", "clearly", "the whole story", "in short, X". No rhetorical questions, no stingers, no metaphors that carry an argument.
+
+**Enumerate arguments in prose, facts in bullets.** "One reading is... A second... A third" for reasoning. Bullets for lists a reader scans. Tables compare three or more things on two or more dimensions, with at most eight rows and five columns in the body.
+
+**Draft warm, then cool.** Draft in the first person, then remove the "I"s. The warmth survives the deletion. Third person, present tense for the state of play, past tense for events. No em-dashes. Bold only on run-in leads. "Operator" rather than "telco" outside quotations and product names.
+
+## Length
+
+| Element | Budget |
+|---|---|
+| Lead | 250 to 400 words |
+| Body sections | 300 to 600 words each, six at most |
+| Callout and options | 300 to 500 words together |
+| Closing | 100 to 200 words |
+| Body total | 2,500 to 3,500 words (six to seven pages with tables) |
+| Footnotes and further reading | unbudgeted, after the body |
+
+When the brief explicitly asks for a longer document, the budget scales, but the body still reads in one sitting and the archive still goes to the appendix.
 
 ## Where each rule came from
 
-| Pattern | Source |
+| Rule | Source |
 |---|---|
-| Findings box before the body ("In brief", "At a glance", "What you'll learn") | McKinsey, MIT Sloan |
-| Opening scene or anchor number | McKinsey (the insurer CEO on Tuesday at 8 a.m.), Wired (Philadelphia police, last week) |
-| Subheads that state the finding, "X, not Y" pairs | McKinsey ("AI economics are local, not global"; "Manage by intervention, not by calendar") |
-| Methodology and exclusions stated in the body | McKinsey "About the research" sidebar |
-| Specific calibration phrases ("an illustration, not a forecast") | McKinsey |
-| One named example per section with a count | McKinsey (7,000 stores; $140 million to $180 million), MIT (62,000 workers; 3,500 unit-based teams) |
-| Opinions carried by named experts, writer stays neutral | MIT Sloan |
-| Open questions posed, not answered | McKinsey "Key CEO questions" boxes |
-| Closing with a turn | McKinsey ("the companies that benefit most will not necessarily be those that deploy AI most widely") |
-| Hinge paragraph before a reveal | Wired ("There's one problem.") |
-| Denominators and dates on every figure | Wired (5,400 respondents; 3.3 of 12; July 18, September 28, October 7) |
-| Absence reported as fact | Wired ("only one major known lawsuit"; "did not immediately respond") |
-| Ending on a quote or stinger | Wired, MIT |
-| Title with a verb and a stake, dek with the number | Wired |
+| Open on a thought; controlling idea in sentence one | Zinsser, "The Lead and the Ending"; Schmidt essays' first paragraphs |
+| Paragraph shape, strongest word last | Strunk rules 9 and 18; Clark tools 2 and 52 |
+| Rhythm by alternation; three short specifics | Clark tools 7 and 18; Schmidt (MIT Technology Review) |
+| Anchor abstractions; people doing things | Clark tool 22 (ladder of abstraction); Zinsser, "Business Writing" |
+| Links on the verb, one per claim | Schmidt (MIT Technology Review) hyperlink practice |
+| Calibration in words | Schmidt (Foreign Affairs) "remains unclear", "that is not guaranteed" |
+| Even stance, observation not verdict | Stakeholder review 2026-10-23: decision support, not op-ed |
+| Six to seven pages, footnotes and further reading after | Stakeholder review 2026-10-23 |
+| Noun-phrase headings; options described, not ranked | Stakeholder review 2026-10-19, retained |
+| Draft warm, then cool | Zinsser, "Write in the First Person" |
 
 ## What was deliberately not adopted
 
-- McKinsey's default imperative voice ("leaders should") and promotion of proprietary tools.
-- Wired's first person, second-person address, conversational asides and editorial verbs.
-- MIT's reliance on a single expert as the spine of a piece.
-- Any of the above as a reason to drop a number, a citation or a technical qualifier.
+- The exemplars' thesis-driven stance, their rhetorical questions and their closing turns.
+- The 2026-10-19 version's confidence labels, per-section settle-it lines, glossary paragraph and unbudgeted tables.
+- McKinsey's imperative voice. Wired's first and second person in the shipped text.
+- Any of the above as a reason to drop a fact the reader needs to decide. Facts the reader does not need move to the appendix; they are not deleted from the vault.

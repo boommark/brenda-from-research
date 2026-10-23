@@ -50,9 +50,18 @@ Read these inputs:
 
      YOUR INPUTS:
      - draft_path: research/notes/final_report_<vault_tag>.md
+     - appendix_path: research/notes/appendix_<vault_tag>.md
      - output_path: research/critic-findings-<critic-name>.json
      - vault_tag: <vault_tag>
      - decomposition_path: research/prompt-decomposition.json   (instruction-critic only)
+     - length_budget_words: <from the decomposition>
+
+     The body is budgeted at length_budget_words (see STYLE-GUIDE.md).
+     Material in the appendix counts as covered when the body points to
+     it. When a finding adds material, say whether it belongs in the
+     body, a footnote or the appendix, and if the body, what should
+     move out to make room. Ask for calibration in words, never as a
+     "Confidence is" label.
    ```
 
 3. **Wait for all critics.** If one fails, you can proceed with the partial set, but log the absence to the run log — the patch pass is less robust with missing critic coverage. **Do NOT skip the instruction-critic specifically** — it's the only critic measuring prompt adherence, which is the dimension with the widest variance.

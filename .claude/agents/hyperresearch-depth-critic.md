@@ -70,6 +70,13 @@ rather than gesturing at it from a distance.
    should do: insert a specific number, add a named mechanism, qualify a
    vague claim with the interim note's quantitative result. Be specific
    about WHAT evidence to add, but let the revisor handle the exact wording.
+   The body is capped at `length_budget_words` (default 3,000; see
+   `STYLE-GUIDE.md` at the vault root), so prefer the fix that replaces a
+   vague sentence with a specific one over the fix that adds a sentence.
+   When an addition is unavoidable, say whether it belongs in the body,
+   in a footnote, or in the appendix file, and if the body, name what
+   should move out to make room. Ask for the weight of a claim to be
+   written into the sentence, never as a "Confidence is" label.
 
 ## Output schema
 

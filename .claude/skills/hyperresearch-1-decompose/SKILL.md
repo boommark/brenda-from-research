@@ -47,7 +47,7 @@ Read both before starting. The vault_tag is in the scaffold's "Run config" secti
    - If the prompt names N entities in a list and asks to "discuss", "analyze", "describe", or "evaluate" each, produce one heading per entity.
    - **Otherwise (narrative prompts):** generate headings from the sub-questions you extracted in step 2. Each sub-question becomes one H2 heading. For open-ended prompts ("Write about X"), derive 4-7 body headings from the topic's natural analytical structure: context → core analysis (1-3 sections mapped to sub-questions) → comparative analysis. The headings don't need to quote the prompt verbatim, but they MUST cover every sub-question from step 2.
 
-   **Heading style.** Unless the prompt dictates literal headings, write each body heading as a topic slug at this stage ("## Who owns AI governance"); the synthesizer rewrites each into a finding stated as a sentence once the evidence is in ("## Ownership is fragmenting by layer, not consolidating"). Do not number headings (`## 1.`, `## I.`). Do not include the frame sections (`## At a glance`, `## About the evidence`, `## Open questions`, `## Implications`) in this array: the drafters add them around the body headings automatically. If the prompt asks for its own closing section (recommendations, outlook, FAQ), add it as the last body heading and the drafters fold Implications into it.
+   **Heading style.** Unless the prompt dictates literal headings, write each body heading as a short noun-phrase topic ("## Ownership of AI governance"). The drafters and synthesizer keep that topic wording and number the sections in order ("## 3. Ownership of AI governance"); the finding is stated in the first sentence of the section, never rewritten into the heading. The body carries at most six H2s: if the prompt enumerates more than six asks, keep every ask in this array (the appendix file honours the full order) and the synthesizer groups them under six body headings. Do not include the frame elements (the lead, the key-numbers table, the `### What would change this reading` callout, `## Options`, the closing, `## Notes`, `## Further reading`) in this array: the writers add them around the body headings automatically. If the prompt asks for its own closing section (recommendations, outlook, FAQ), add it as the last body heading and the writers fold the options section into it. See STYLE-GUIDE.md.
 
    Example (prompt: "Your report should: 1) List major manufacturers... 2) Include images... 3) Analyze primary use cases... 4) Investigate market penetration..."):
    ```json
@@ -92,9 +92,13 @@ Read both before starting. The vault_tag is in the scaffold's "Run config" secti
   "scope_conditions": ["urban rail specifically, not mainline"],
   "pipeline_tier": "full",
   "response_format": "analytical",
-  "citation_style": "wikilink"
+  "citation_style": "wikilink",
+  "length_budget_words": 3000,
+  "long_form": false
 }
 ```
+
+   **`length_budget_words` and `long_form`.** The body of the final report (title through closing, excluding footnotes, further reading and the appendix file) is capped at `length_budget_words`. Default 3,000 (six to seven pages with tables; range 2,500 to 3,500) and `long_form: false`. Flip `long_form` to `true` and raise the budget ONLY when the user's prompt explicitly asks for a long document ("a 20-page report", "comprehensive reference", "leave nothing out", a stated page or word count above seven pages). A broad or multi-part question is not a request for length; its reference material goes to the appendix file. `short` format keeps its own 500 to 2,000 range and ignores this field. Record the reason for any non-default value in the scaffold's Tier rationale.
 
 5. **Omit nothing the prompt names explicitly.** List every numbered ask, every named entity, every format cue as a separate atomic item, even if they feel redundant. The instruction-critic catches false-positive atomic items cheaply; it cannot catch false-negatives.
 
@@ -115,9 +119,9 @@ Read both before starting. The vault_tag is in the scaffold's "Run config" secti
 
    | Format | When to use | Characteristics |
    |--------|-------------|----------------|
-   | `"short"` | Direct answer, not a report. | 500–2000 words. 1–5 paragraphs. Tables/lists as needed. No Synthesis section. Answer up front, evidence follows. |
-   | `"structured"` | Coverage across entities/topics. Scannability matters more than analytical depth. | 2000–5000 words. Scannable subsections. Breadth-first. Tables, bullets, visual devices liberally. Survey-style coverage acceptable. |
-   | `"analytical"` | Deep analysis, evidence-chain reasoning, contested topics. | 5000–10000 words. MIT / McKinsey / HBR style research report: factual, credible, engaging. Presents what the evidence supports and where credible sources disagree; never adopts a thesis for its own sake. Required Synthesis section with findings, confidence, open questions and outlook. |
+   | `"short"` | Direct answer, not a report. | 500–2000 words. 1–5 paragraphs. Tables/lists as needed. Answer up front, evidence follows. |
+   | `"structured"` | Coverage across entities/topics. Scannability matters more than analytical depth. | Body within `length_budget_words` (default 3,000). Scannable subsections, tables within eight rows by five columns, bullets for facts. Entity tables and matrices go to the appendix file. |
+   | `"analytical"` | Deep analysis, evidence-chain reasoning, contested topics. | Body within `length_budget_words` (default 3,000). Decision-support report written as a human expert would (STYLE-GUIDE.md): lead with the controlling finding, key numbers, at most six numbered sections, one "what would change this reading" callout, options when asked, closing, then footnotes, further reading and the appendix file. Presents what the evidence supports and where credible sources disagree; never adopts a thesis for its own sake. |
 
    **The two dimensions are independent.** Most common pairings:
    - `light` + `short` — factual lookup, definition, simple how-to
@@ -129,9 +133,9 @@ Read both before starting. The vault_tag is in the scaffold's "Run config" secti
 
    | Style | When to use | Output |
    |-------|-------------|--------|
-   | `"wikilink"` | **Default.** Personal use in a vault — every citation is a clickable wiki-link back to the raw source note in `research/notes/`. | `[[note-id]]` markers inline. No separate Sources section (each link self-resolves to the source note's frontmatter title + URL). |
-   | `"inline"` | Public deliverable, benchmark wrappers, or verifiable research report for someone outside the vault. | `[N]` inline citations + a formatted `## Sources` list at the end. |
-   | `"none"` | Polished expert-analysis with no visible citation apparatus. | No citation markers, no Sources section. |
+   | `"wikilink"` | **Default.** Personal use in a vault: every footnote resolves to the raw source note in `research/notes/`. | `[^N]` footnote markers in the body, one per claim; a `## Notes` block where each entry carries author or organisation, title, date and the `[[note-id]]` wiki-link (the link self-resolves to the source note's frontmatter title + URL). |
+   | `"inline"` | Public deliverable, benchmark wrappers, or verifiable research report for someone outside the vault. | The same `[^N]` markers; the `## Notes` entries carry the formatted citation and URL instead of the wiki-link. |
+   | `"none"` | Polished expert-analysis with no visible citation apparatus. | No citation markers, no Notes block. |
 
    **Wrapper override:** if `research/wrapper_contract.json` exists and specifies `citation_style`, it overrides the default. The benchmark harness sets `"inline"` via wrapper_contract so RACE evaluators can read numbered references; everything else gets the wikilink default.
 
@@ -161,7 +165,7 @@ Read both before starting. The vault_tag is in the scaffold's "Run config" secti
 ## Exit criterion
 
 - `research/prompt-decomposition.json` exists, is valid JSON, every atomic item traces to the research_query
-- `pipeline_tier` + `response_format` + `citation_style` are all set
+- `pipeline_tier` + `response_format` + `citation_style` + `length_budget_words` + `long_form` are all set
 - `research/temp/coverage-matrix.md` exists with **zero `Gap? = YES` rows**
 - `research/scaffold.md` includes a Tier rationale subsection
 

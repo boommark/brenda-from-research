@@ -208,56 +208,82 @@ following gap. These checks catch it.
 
 **Check R1: Audience adaptation / definitions.**
 If the report uses 3+ technical terms, acronyms, or domain jargon
-that a non-specialist reader would not recognize, AND does not define
-them on first use (inline parenthetical or dedicated glossary), emit:
+that a non-specialist reader would not recognize, AND does not explain
+them in plain words in the sentence where each first does real work,
+emit:
   - `failure_mode`: `"missing-definitions"`
   - `severity`: `major`
-  - `recommendation`: identify the undefined terms and suggest adding
-    a brief parenthetical definition on first mention
+  - `recommendation`: identify the undefined terms and suggest a
+    plain-words clause at first use. Do not recommend a glossary
+    paragraph; the house style defines at the point of need.
 
-**Check R2: Citation density.**
-Count inline `[N]` citations in the body (excluding the ## Sources
-section). Count total body characters. If the ratio is below **1.5
-citations per 1000 characters**, emit:
-  - `failure_mode`: `"low-citation-density"`
+**Check R2: Citation coverage.**
+Count paragraphs in the body (excluding `## Notes`, `## Further
+reading` and the appendix) that carry a fact but no `[^N]` footnote
+marker. Also note any sentence carrying two or more markers, and any
+marker with no matching `## Notes` entry. If three or more
+fact-carrying paragraphs lack a marker, or markers fail to resolve,
+emit:
+  - `failure_mode`: `"citation-coverage"`
   - `severity`: `major`
-  - `recommendation`: identify 5-8 claim-dense passages with no
-    citations and suggest adding vault-sourced citations
+  - `recommendation`: name the passages and the vault source each
+    should cite, one marker per claim. (Older drafts may use `[N]` or
+    inline `[[...]]`; apply the same coverage test.)
 
-**Check R3: Forward-looking analysis.**
-If `response_format` is `"analytical"` and the report has no
-section or substantial paragraph (200+ chars) addressing future
-implications, trends, or strategic outlook, emit:
+**Check R3: Forward view.**
+If the closing does not say what will change the picture and by when,
+emit:
   - `failure_mode`: `"missing-forward-analysis"`
   - `severity`: `major`
-  - `recommendation`: suggest adding a forward-looking subsection
-    within the conclusion or a standalone paragraph
+  - `recommendation`: suggest the one or two sentences the closing
+    should carry, sourced from the draft or interim notes
 
 **Check R4: Comparison tables.**
 If the report compares 3+ entities across 2+ dimensions entirely in
 prose (no comparison table), emit:
   - `failure_mode`: `"missing-comparison-table"`
   - `severity`: `minor`
-  - `recommendation`: suggest converting the comparison to a table
+  - `recommendation`: suggest converting the comparison to a table of
+    at most eight rows by five columns; anything larger belongs in the
+    appendix file with a pointer sentence in the body
 
-**Check R5: Report frame.**
+**Check R5: Report frame and budget (see STYLE-GUIDE.md at the vault root).**
 If `response_format` is `"analytical"` or `"structured"` and the report
-lacks any of: a one-sentence dek under the title, `## At a glance`
-(3-5 one-sentence findings with figures), `## About the evidence`,
-`## Open questions`, or `## Implications`, emit:
-  - `failure_mode`: `"missing-frame-section"`
+lacks any of: an italic line under the title; a lead whose first
+sentence states the controlling finding (not "This report examines");
+a key-numbers table; numbered body H2s with short noun-phrase headings
+(at most six); one `### What would change this reading` callout;
+`## Options` when the query asks about choices; a closing; `## Notes`;
+`## Further reading` linking the appendix; or if any body heading is a
+sentence or an "X, not Y" pair; or if the body (title through closing)
+exceeds `length_budget_words` from the decomposition by more than ten
+percent, emit:
+  - `failure_mode`: `"missing-frame-section"` (or `"over-budget"`)
   - `severity`: `major`
   - `recommendation`: name the missing frame element(s) and what
-    content from the draft or interim notes should fill each
+    content from the draft or interim notes should fill each. For
+    over-budget, name the tables or passages that should move to the
+    appendix file; never recommend deleting evidence.
 
 **Check R6: Denominators and dates.**
 Sample 10 figures in the body. If 3 or more percentages lack their base
-(population, N, period) or 3 or more dated events lack a date where the
-cited source gives one, emit:
+(population, N, period) in the body or the footnote, or 3 or more dated
+events lack a date in the body or the footnote where the cited source
+gives one, emit:
   - `failure_mode`: `"missing-denominator-or-date"`
   - `severity`: `major`
   - `recommendation`: list the figures and the source each should be
-    completed from
+    completed from; the footnote is the right home when the body
+    sentence already reads cleanly
+
+**Check R8: Calibration scaffolding.**
+If the body carries "Confidence is <level>", "(about N%)" after a
+judgment, or per-section "what would settle it" sentences outside the
+single callout, emit:
+  - `failure_mode`: `"calibration-label"`
+  - `severity`: `minor`
+  - `recommendation`: fold each into the sentence as a clause or move
+    the open point to the callout
 
 **Check R7: Unrequested recommendations.**
 If the research query does not ask for advice or recommendations and
@@ -280,9 +306,16 @@ let these crowd out core instruction-following findings. Use
   `atomic_item` field verbatim from research_query or from
   prompt-decomposition.json. If the prompt didn't name it, don't flag
   it — that's the width critic's job, not yours.
-- **Keep recommendations surgical.** Same discipline as the other critics —
+- **Keep recommendations surgical.** Same discipline as the other critics:
   your recommendation should describe a minimal change that addresses
   the atomic item.
+- **Respect the body budget.** The body is capped at
+  `length_budget_words` (default 3,000). When a finding asks for
+  material to be added, say whether it belongs in the body or the
+  appendix file, and if the body, name what should move to the appendix
+  to make room. An atomic item covered in the appendix with a pointer
+  sentence in the body counts as covered unless the prompt asked for it
+  in the main text.
 - **For `wrong-format` findings**, a full format change (ranked-list
   → FAQ) is structural — flag `severity: critical` with a description
   in `issue`. These escalate to the orchestrator, not the revisor.

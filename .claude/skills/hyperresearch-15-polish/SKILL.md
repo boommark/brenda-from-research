@@ -58,14 +58,21 @@ prompt: |
   YOUR INPUTS:
   - draft_path: research/notes/final_report_<vault_tag>.md
   - polish_log_path: research/polish-log.json   (already stubbed)
+  - length_budget_words: <from the decomposition>
+  - style_guide_path: STYLE-GUIDE.md
 ```
 
 The polish auditor strips:
-- **Pipeline reference leaks**: `[I\d+]` references, `[[interim-*]]` wiki-links pointing at workspace artifacts (NOT source notes), references to scaffold/comparisons/synthesis-plan files in prose. **Citation wiki-links** of the form `[[<source-note-id>]]` (where the target is a real source note in the vault, not an interim/scaffold workspace file) are PRESERVED when `citation_style == "wikilink"` — they are the citation system, not a leak. Strip wikilinks only when `citation_style` is `"inline"` or `"none"`.
+- **Pipeline reference leaks**: `[I\d+]` references, `[[interim-*]]` wiki-links pointing at workspace artifacts (NOT source notes), references to scaffold/comparisons/synthesis-plan files in prose. **Citation wiki-links** of the form `[[<source-note-id>]]` inside the `## Notes` block are PRESERVED when `citation_style == "wikilink"`; they are the citation system, not a leak. Strip wikilinks only when `citation_style` is `"inline"` or `"none"`.
 - Hygiene leaks (YAML frontmatter, scaffold sections, prompt echoes)
 - Filler phrases ("It is worth noting", "Importantly", etc.)
+- Calibration scaffolding ("Confidence is <level>", "(about N%)", per-section "what would settle it" lines outside the single callout), folded into the sentence as a clause where they carried a real boundary condition
+- Verdict phrasing and rhetorical questions, softened to observation
+- Citation chains, reduced to one marker per claim
 - Redundant sentences / paragraphs that restate prior content
 - Run-on sentences and over-long paragraphs (breaks into smaller units via Edit)
+
+It does not cut evidence to meet the body budget; it logs an escalation naming what should move to the appendix.
 
 ---
 
@@ -73,7 +80,7 @@ The polish auditor strips:
 
 The polish auditor ESCALATES structural mismatches (wrong format for the prompt, missing required sections, etc.) rather than fabricating content to fix them. Read the escalations in the polish log.
 
-If the escalation names a structural issue (e.g., "user asked for a ranked list; draft is unranked prose"), you have one shot to fix it — craft the restructure yourself with hand-written Edits, then ship.
+If the escalation names a structural issue (e.g., "user asked for a ranked list; draft is unranked prose"), you have one shot to fix it: craft the restructure yourself with hand-written Edits, then ship. If the escalation says the body is over `length_budget_words`, move the named blocks to `research/notes/appendix_<vault_tag>.md` (cut from the body, append to the appendix, leave a one-sentence pointer) rather than deleting them. If the escalation says open points were stripped and no callout exists, add the `### What would change this reading` callout yourself from those points, before the options or closing.
 
 **Sanity-check net length.** Polish should have NEGATIVE net char delta. If the polish log shows positive net chars added, something went wrong — polish is for cutting, not expanding.
 

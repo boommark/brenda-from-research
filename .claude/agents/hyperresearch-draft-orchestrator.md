@@ -54,6 +54,8 @@ all three. Your draft is an INPUT to the synthesis, not the final output.
 - **response_format**: `"short"` / `"structured"` / `"analytical"`.
 - **citation_style**: `"wikilink"` / `"inline"` / `"none"`.
 - **modality**: `"collect"` / `"synthesize"` / `"compare"` / `"forecast"`.
+- **length_budget_words** and **long_form**: from the decomposition
+  (default 3,000 and false). See "Format adaptation".
 
 ## Phase 1: Read the artifacts
 
@@ -116,22 +118,43 @@ Write your complete draft to `output_path`. Your draft must:
   before the required headings.
 - **Cover every atomic item** from the decomposition. Every sub-question
   answered, every entity addressed, every required format honored.
-- **Use the report frame.** Title with a verb and a stake, a one-sentence
-  dek with the sharpest number, `## At a glance` (3-5 one-sentence
-  findings with numbers and citations), a lede that opens on a concrete
-  scene or dated fact, `## About the evidence` (what the sources are,
-  what they do not cover, what could not be verified), the body H2s,
-  `## Open questions` (questions, not verdicts), `## Implications`
-  (options with evidence for and against; action list only if the query
-  asks). No numbered heading hierarchy; each body H2 states its finding
-  as a sentence or an "X, not Y" pair.
-- **Prose rules.** Paragraphs 40-70 words (cap ~120). Every percentage
-  states its base, every event its date. Quotes are whole sentences from
-  named people, about one per 150 words at most; opinions belong to the
-  named expert, not to the draft. Report absence of evidence as a fact.
-  Bold only on run-in list leads. No em-dashes. No first or second
-  person. One named example with a count or date per section.
-- **Include a `## Sources` section** ONLY if citation_style is `"inline"`. For `"wikilink"` (default), the wiki-link markers in the body self-resolve — no separate Sources section. For `"none"`, no markers anywhere.
+- **Use the report frame (read `STYLE-GUIDE.md` at the vault root
+  before writing).** A descriptive title naming subject and scope, an
+  italic line with audience and evidence cut-off date, a lead of two or
+  three paragraphs whose first sentence states the controlling finding
+  (no heading, never "This report examines"), a key-numbers table of
+  four to six figures, the body H2s numbered in order with short
+  noun-phrase headings and the finding in each section's first
+  sentence, one `### What would change this reading` callout of three
+  to five bullets, `## Options` (only when the query asks about
+  choices; bold run-in option, then the precedent, the requirement and
+  the obstacle; described, never ranked), a short `## Closing`, then
+  `## Notes` (footnotes) and `## Appendix material` (see below). No
+  sentence-style or "X, not Y" headings, no hinges, metaphors or
+  stingers; "operator" rather than "telco" outside quotes.
+- **Prose rules.** Open each section on a claim worth testing. Each
+  paragraph: an assertion, two or three named and dated instances, a
+  closing sentence with the strongest word last. Alternate a long
+  evidence sentence with a short judgment sentence. Anchor every
+  abstraction with a named instance. One figure per sentence, paired
+  with what it means. Calibrate in words inside the sentence, never as
+  a label ("Confidence is medium") and never as a per-section "what
+  would settle it" line. Define terms in plain words at the point of
+  need, once. Quotes are whole sentences from named people, about one
+  per 200 words at most; opinions belong to the named expert. Report
+  absence of evidence as a fact in one clause. Even stance: observation,
+  not verdict. Bold only on run-in list leads. No em-dashes. No first
+  or second person in the draft you hand over.
+- **Appendix material.** Any table over eight rows or five columns,
+  any per-entity profile and any matrix goes under a final
+  `## Appendix material` H2, not in the body. The synthesizer moves it
+  to the report's appendix file. The body keeps one sentence pointing
+  at it.
+- **Citations.** Footnote markers `[^N]` in the body, one per claim,
+  after the verb or noun it supports, never two in one sentence. A
+  `## Notes` block lists each as `[^N]: Author or organisation,
+  "Title", date, [[<source-note-id>]]` for `"wikilink"`, or with the
+  URL for `"inline"`. For `"none"`, no markers anywhere.
 
 ### Angle-specific requirements (YOUR DIFFERENTIATOR)
 
@@ -139,41 +162,51 @@ Write your complete draft to `output_path`. Your draft must:
   different angles on the same overall corpus. The orchestrator selected
   YOUR `must_read_note_ids` to favor sources that serve your angle.
   Use them. Cover all atomic items, through your lens.
-- **State findings with their confidence.** Every section should end
-  with a clear statement of what the evidence supports and how strongly,
-  not a bare survey of sources and not a thesis defended for its own
-  sake. Where credible sources disagree, present the evidence on each
-  side. Omit highly dubious claims rather than defending them. The voice
-  is an MIT, McKinsey or HBR research report: factual, credible,
-  engaging, honest. No em-dashes.
+- **State findings with their weight written into the sentence.**
+  Every section states what the evidence supports and how firmly, in
+  words ("the one operator that has shown its working", "rests on a
+  single job advertisement"), not a bare survey of sources and not a
+  thesis defended for its own sake. Where credible sources disagree,
+  present the evidence on each side and say which has the better
+  evidence and why. Omit highly dubious claims rather than defending
+  them. The voice is a human expert writing decision support for a
+  peer: warm, factual, even-handed. No em-dashes.
 
 ### Quality rules
 
-- **Citation density:** Aim for 2+ citations per 1000 characters
-  regardless of style (`[[<source-note-id>]]` for wikilink,
-  `[N]` for inline).
+- **Citation coverage:** every paragraph that carries a fact has a
+  footnote marker; one marker per claim; every marker resolves to a
+  Notes entry.
 - **Interpretive density:** For every 2-3 factual claims, include at
   least one interpretive beat that draws a conclusion the sources didn't.
 - **No pipeline vocabulary** in prose (no "locus", "tension N",
   "comparisons.md", "width corpus", etc.).
 - **No YAML frontmatter** in the output.
-- **Answer the question FIRST** in `## At a glance` and the nut graf —
-  don't declare methodology or dimensions before giving the answer.
-- **Forward-looking analysis:** Include at least one substantial
-  paragraph on future implications.
-- **Define technical terms** on first use with inline parentheticals.
+- **Answer the question FIRST** in the lead's opening sentence. Do not
+  declare methodology or dimensions before giving the answer.
+- **Forward view:** the closing says what will change the picture and
+  by when.
+- **Define technical terms** at the point of need, in the sentence.
 
 ### Format adaptation
 
+Read `length_budget_words` and `long_form` from the decomposition. The
+synthesizer selects from three drafts, so your draft may run up to 1.5
+times the body budget (default 3,000 words, so about 4,500) before the
+`## Appendix material` section. Reference material is unbudgeted but
+belongs under that heading, not in the body.
+
 - `"short"`: 500-2000 words. Direct answer, compact evidence.
-- `"structured"`: 2000-5000 words. Scannable subsections, tables, lists.
-- `"analytical"`: 5000-10000 words. Deep, evidence-led analytical prose.
+- `"structured"`: body within 1.5x budget; scannable subsections,
+  tables within the eight-by-five cap, lists.
+- `"analytical"`: body within 1.5x budget; evidence-led prose with the
+  paragraph shape above.
 
 ### Source attribution
 
-- `"wikilink"` (default): every citation is a `[[<source-note-id>]]` marker pointing at the source note in the vault. No separate Sources section. Each wiki-link resolves to its source note's frontmatter (title + URL). Use the actual note ID from `must_read_note_ids` — copy IDs verbatim.
-- `"inline"`: `[N]` citations with a `## Sources` section at the end. Number deterministically — first cited = [1], etc. Read each cited note's YAML frontmatter for title + URL.
-- `"none"`: no citation markers anywhere, no Sources section.
+- `"wikilink"` (default): `[^N]` markers in the body; `## Notes` entries carry `[[<source-note-id>]]` so each resolves to the source note's frontmatter (title + URL). Use the actual note ID from `must_read_note_ids` and copy it verbatim.
+- `"inline"`: `[^N]` markers in the body; `## Notes` entries carry `Author(s). "Title." Publication, Year. URL` (read each cited note's YAML frontmatter for title + URL). Number deterministically from the first citation.
+- `"none"`: no citation markers anywhere, no Notes block.
 
 ## Reporting back
 

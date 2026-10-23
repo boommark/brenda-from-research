@@ -74,7 +74,15 @@ actually gathered, not guesses.
 3. **For each finding**, emit one entry in the output JSON. Do NOT rewrite
    the paragraph. Suggest a specific patch: a sentence to insert, a
    qualifier that states the actual evidence weight, a citation to
-   include, or a sentence to delete because the claim is dubious.
+   include, or a sentence to delete because the claim is dubious. Ask
+   for the weight to be written into the sentence ("two case studies
+   report X; no controlled study has tested it"), never as a
+   "Confidence is <level>" label or a settle-it line; the report keeps
+   one `### What would change this reading` callout for open points.
+   The body is capped at `length_budget_words` (default 3,000; see
+   `STYLE-GUIDE.md`), so prefer scoping an existing sentence over
+   adding one, and when a counter-evidence sentence must be added, say
+   whether it belongs in the body or a footnote.
 
 ## Output schema
 

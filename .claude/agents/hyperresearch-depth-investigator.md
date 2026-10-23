@@ -192,16 +192,16 @@ without saying on what, and how strongly, is insufficient.
 **Required calibration fields (after your prose paragraph):**
 
 - **Finding:** one-sentence statement of what the evidence supports.
-  Write it so it could sit unchanged in the final report's
-  `## At a glance` list: a number, a base, a date where the evidence
+  Write it so it could open a section of the final report unchanged: a
+  claim worth testing, with a number, a base, a date where the evidence
   has them.
 - **Named example:** one company, study, filing or person with a count,
   a date or a figure that illustrates the finding. The final report
   needs one per section.
 - **What could not be verified:** circulating figures or claims you
   could not trace to a primary source, and sources that did not
-  answer. These go into the report's `## About the evidence` section
-  as stated facts.
+  answer. The final report states these as facts in one clause where
+  the claim appears, or in a footnote.
 - **Confidence:** high (>80% certain given available evidence) |
   medium (50-80%) | low (30-50%) — calibrate honestly. If only 2 of 5
   sources support your position, say medium, not high.
@@ -209,9 +209,11 @@ without saying on what, and how strongly, is insufficient.
   "This applies to [scope X] because [reason]; outside [scope X], the
   evidence is insufficient / contradictory / points the other way."
 - **What would change this assessment:** the specific evidence that
-  would flip your reading. Phrase it so it can become an entry in the
-  report's `## Open questions` section: the question, then what would
-  settle it. "If a large-N study showed X < threshold Y, this
+  would flip your reading. Phrase it so it can become one bullet in
+  the report's single `### What would change this reading` callout:
+  the event, document or number, and what it would shift. (The
+  interim note keeps its confidence field; the final report carries
+  the weight in prose, not as a label.) "If a large-N study showed X < threshold Y, this
   position would not hold." This is the single most valuable calibration
   signal — it tells Layer 3.5 where the evidence is thinnest and Layer 4
   where to qualify vs. state plainly.

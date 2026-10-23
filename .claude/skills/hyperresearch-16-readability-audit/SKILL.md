@@ -55,10 +55,15 @@ prompt: |
 
   YOUR INPUTS:
   - draft_path: research/notes/final_report_<vault_tag>.md
+  - appendix_path: research/notes/appendix_<vault_tag>.md
   - recommendations_path: research/readability-recommendations.json
+  - length_budget_words: <from the decomposition>
+  - style_guide_path: STYLE-GUIDE.md
 
-  Write recommendations as a JSON array per the schema in your agent
-  prompt. Cap at 50 recommendations, prioritized by impact.
+  Run the length-budget check first (body words against the budget;
+  recommend moves to the appendix, never deletions). Then write
+  recommendations as a JSON array per the schema in your agent prompt.
+  Cap at 50 recommendations, prioritized by impact.
 ```
 
 ---
@@ -70,8 +75,9 @@ When the recommender returns:
 1. **Read `research/readability-recommendations.json`.**
 
 2. **Read the recommender's report-back.** It tells you:
+   - Body word count against `length_budget_words`
    - Total count of recommendations
-   - Breakdown by category (merge-paragraphs, break-paragraph, make-list, make-table, bold-keyterms, split-sentence, remove-hr, add-whitespace)
+   - Breakdown by category (move-to-appendix, remove-tic, heading-style, merge-paragraphs, break-paragraph, make-list, make-table, bold-keyterms, split-sentence, remove-hr, add-whitespace)
    - Highest-severity issue
    - Expected net char delta if all applied
 
@@ -82,20 +88,23 @@ When the recommender returns:
 You are not obligated to apply every recommendation. Use these heuristics:
 
 **Apply confidently:**
+- All `move-to-appendix` recommendations when the body is over `length_budget_words`: cut the block from the body, append it to `research/notes/appendix_<vault_tag>.md` under the matching heading, and leave the pointer sentence. Make sure Further reading links the appendix.
+- All `remove-tic` recommendations ("Confidence is" labels, settle-it lines outside the callout, paragraph-ending markers moved inside the sentence)
 - All `merge-paragraphs` recommendations where adjacent paragraphs are clearly the same sub-topic (rationale field confirms this)
 - All `break-paragraph` recommendations on paragraphs > 800 CJK / 1500 EN chars
 - All `remove-hr` recommendations (horizontal rules don't belong in research reports)
 - All `add-whitespace` recommendations (zero risk)
-- `make-table` recommendations when the prose-comparison passage cited 3+ entities × 2+ dimensions and the recommender's suggested table preserves all comparison points
+- `make-table` recommendations when the prose-comparison passage cited 3+ entities × 2+ dimensions, the suggested table preserves all comparison points, and it fits eight rows by five columns
 
 **Apply with judgment:**
-- `make-list` recommendations: confirm the prose was actually enumerative (3+ items in sequence) and not load-bearing analytical prose. If the rationale says "items appear sequentially in flowing prose," that's NOT a list candidate — skip it.
-- `bold-keyterms` recommendations: confirm the term is genuinely a key term, not just any noun. Bold load-bearing concepts and statistics; don't over-bold.
+- `heading-style` recommendations: apply when a heading is a sentence or an "X, not Y" pair; keep the section numbers. Folding sections is structural: do it only if the body has more than six H2s.
+- `make-list` recommendations: confirm the prose was actually enumerative (3+ facts in sequence) and not reasoning. Arguments stay in prose ("one reading is... a second..."); facts a reader scans become bullets. If the rationale says "items appear sequentially in flowing prose," that's NOT a list candidate; skip it.
+- `bold-keyterms` recommendations: bold only run-in leads of list items. Never bold a term or a statistic inside a paragraph.
 
 **Apply skeptically (often skip):**
-- `split-sentence` recommendations on analytical prose where sentence length serves emphasis or rhythm
-- Recommendations that touch the opening thesis paragraph (load-bearing — keep as written)
-- Recommendations that change tables that already exist
+- `split-sentence` recommendations where the long sentence is followed by a short judgment sentence; that alternation is the house rhythm. Apply when the sentence carries two sources or two figures.
+- Recommendations that touch the lead's first paragraph (load-bearing; keep as written)
+- Recommendations that change tables that already exist (unless they exceed eight by five, which is a move)
 
 **Always skip:**
 - Any recommendation whose `current` field doesn't match the actual draft (the recommender mis-anchored — log and ignore)
@@ -115,7 +124,8 @@ For each recommendation you decide to apply:
 **For non-ASCII text (CJK / Arabic / Cyrillic):** the recommender copied `current` verbatim from Read output. Trust that. Don't retype.
 
 **Order of application:**
-1. `remove-hr` first (smallest changes, cleanest baseline)
+0. `move-to-appendix` first (largest changes; the rest of the anchors are then stable)
+1. `remove-hr` and `remove-tic` (small changes, clean baseline)
 2. `merge-paragraphs` and `break-paragraph` (paragraph-level changes)
 3. `make-list` and `make-table` (structural conversions)
 4. `bold-keyterms` (within paragraphs that survived the merges/breaks)
@@ -153,12 +163,13 @@ This is the audit trail. If a future review finds a readability problem we shoul
 - `research/readability-recommendations.json` exists
 - `research/readability-decisions.json` exists with at least one entry in `applied` or all `skipped`
 - `research/notes/final_report_<vault_tag>.md` reflects the applied recommendations
-- The final report's structure (H2 list, At a glance, Implications) is unchanged from step 15's output (this step does not restructure)
+- The final report's structure (H2 list, lead, callout, options, closing, Notes, Further reading) is unchanged from step 15's output apart from blocks moved to the appendix (this step does not otherwise restructure)
+- Body word count is within `length_budget_words` plus ten percent, and `research/notes/appendix_<vault_tag>.md` holds whatever moved
 
 ---
 
 ## Pipeline complete
 
-Return to the entry skill (`hyperresearch`). Mark all todos complete. Tell the user the final report path.
+Return to the entry skill (`hyperresearch`). Mark all todos complete. Tell the user the final report path, the appendix path, and the body word count against the budget.
 
 You're done.

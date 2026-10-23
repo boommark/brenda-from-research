@@ -63,7 +63,7 @@ You need the `## Assessment` section from every interim note in your context.
 
 5. **Calibration synthesis.** For each tension, note the investigators' confidence levels and "what would change this assessment" conditions from their calibration fields. When two investigators disagree but one is "high confidence" and the other is "low confidence," the draft should weight accordingly. When both name the same "what would change my mind" condition, that's a genuine open question to flag explicitly.
 
-6. **This document is the evidence map of the draft.** Every dynamic you name here must be visibly presented in the final report — a paragraph or section that lays out the evidence on each side and the calibration, not a one-line gesture. If you write `comparisons.md` with 4 dynamics and the draft only visibly presents 1, the report is hiding what the research found.
+6. **This document is the evidence map of the draft.** Every dynamic you name here must be visibly presented in the final report: a paragraph inside the body section it bears on that lays out the evidence on each side in prose and says which side has the better evidence and why, not a one-line gesture and not a "Confidence is" label. The "what would settle it" conditions go to the report's single `### What would change this reading` callout. If you write `comparisons.md` with 4 dynamics and the draft only visibly presents 1, the report is hiding what the research found. The body is budgeted (six to seven pages), so a dynamic that does not bear on the decision is presented in the appendix file, with one sentence in the body.
 
 ---
 

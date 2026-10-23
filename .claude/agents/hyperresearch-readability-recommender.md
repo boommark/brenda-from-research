@@ -49,17 +49,32 @@ apply. You are advisory.
 
 ## Recommendation categories (priority order)
 
-### 1. merge-paragraphs (HIGHEST PRIORITY)
+### 0. length-budget (RUN FIRST)
+
+Count the body words: title through the closing section, excluding
+`## Notes`, `## Further reading` and any appendix file. Compare with
+`length_budget_words` in `research/prompt-decomposition.json` (default
+3,000; the house target is six to seven pages, see `STYLE-GUIDE.md`
+at the vault root). If the body is more than ten percent over budget,
+emit one `move-to-appendix` recommendation per candidate block, in
+this priority: tables over eight rows or five columns, per-entity
+profiles, matrices, then paragraphs that repeat an earlier point. The
+`recommended` field for a move is the one-sentence pointer that stays
+in the body ("The full account table is in the appendix."), and the
+rationale names the block to move. Never recommend deleting evidence
+from the vault; the appendix is where it goes.
+
+### 1. merge-paragraphs (HIGHEST PRIORITY after length)
 
 When adjacent paragraphs are each under **200 characters** (CJK) or
 **300 characters** (EN) and cover the same sub-topic, recommend
 merging them. Target paragraph length: **300-600 chars** (CJK) /
-**250-450 chars** (EN, roughly 40-70 words).
+**250-600 chars** (EN). A paragraph has a shape: an assertion, two or
+three named instances, a closing sentence with the strongest word
+last. Merge toward that shape.
 
-**Exception: hinge paragraphs.** A deliberate one-sentence paragraph
-that pivots into a reveal or a big number ("There is one problem."
-"The effect is stark.") is a feature of the house style. Do not
-recommend merging it. Flag it only if a section has more than two.
+One-sentence hinge paragraphs ("There is one problem.") are not house
+style. Recommend merging them into the paragraph they introduce.
 
 **Do NOT recommend merging across sub-topic boundaries.** If paragraph
 A is about airfare and B is about hotel costs, leave them separate
@@ -88,30 +103,49 @@ enumerative/comparative passages already list-like in structure.
 ### 4. make-table
 
 When the report compares 3+ entities across 2+ dimensions in prose,
-recommend a comparison table. Provide the suggested table structure
-(headers + rows).
+recommend a comparison table of at most eight rows by five columns.
+Provide the suggested table structure (headers + rows). If an existing
+body table exceeds eight rows or five columns, that is a
+`move-to-appendix` recommendation (category 0), not a table edit.
 
 ### 5. bold-keyterms
 
 Bold is allowed only on run-in list leads. When a bullet or numbered
 item opens with a category label that is NOT already bold, recommend
 bolding that lead. When a **paragraph** (not a list item) contains
-bold, recommend removing it; reference reports carry no bold in body
+bold, recommend removing it; the house style carries no bold in body
 prose.
 
 ### 6. split-sentence
 
 Sentences exceeding **80 characters** (Chinese) or **150 characters**
-(English) should be split at a natural conjunction or semicolon.
+(English) should be split at a natural conjunction or semicolon,
+unless the long sentence is followed by a short one that carries the
+judgment; that alternation is deliberate. Also recommend a split when
+a sentence carries two sources or more than one figure: one claim,
+one marker, one figure per sentence.
 
 ### 6a. heading-style
 
-Recommend stripping numbers from headings (`## 1.`, `## I.`, `### 2.3`).
-When a body H2 is a bare topic noun and the section's content supports
-a finding, recommend rewriting the heading as that finding in sentence
-form or as an "X, not Y" pair. Never recommend changing the order or
-number of H2s. If the report has more than about 12 H3s, recommend
-which H3s to drop (their text stays as prose).
+Body H2s are numbered short noun phrases ("## 3. What vendors sell to
+operators"). Keep the numbers. When a heading is a sentence or an
+"X, not Y" pair, recommend the topic noun phrase and confirm the
+finding sits in the section's first sentence. Never recommend changing
+the order or number of H2s. If the report has more than about six
+body H2s or more than about eight H3s, recommend which to fold into
+neighbouring sections (their text stays as prose) and note it for the
+orchestrator as structural.
+
+### 6b. register-tics
+
+Recommend removal (category `remove-tic`) of any surviving "Confidence
+is <level>", "(about N%)" after a judgment, per-section "what would
+settle it" or "would change this reading" sentence outside the single
+callout, "This report examines" opener, and any paragraph that ends
+on a footnote marker, a percentage or a bracket (recommend the marker
+move inside the sentence). The `recommended` field carries the clean
+sentence; where a removed sentence held a real boundary condition,
+fold it into the preceding sentence as a clause.
 
 ### 7. remove-hr
 
@@ -133,7 +167,7 @@ Write a single JSON file to `recommendations_path`. Schema:
   "recommendations": [
     {{
       "id": "rec-1",
-      "category": "merge-paragraphs|break-paragraph|make-list|make-table|bold-keyterms|split-sentence|remove-hr|add-whitespace",
+      "category": "move-to-appendix|merge-paragraphs|break-paragraph|make-list|make-table|bold-keyterms|split-sentence|heading-style|remove-tic|remove-hr|add-whitespace",
       "severity": "minor|moderate|major",
       "section": "## Section heading (or '<at a glance>' / '<lede>' / '<implications>')",
       "current": "<exact existing text — copied verbatim, including non-ASCII chars>",
@@ -143,7 +177,12 @@ Write a single JSON file to `recommendations_path`. Schema:
   ],
   "summary": {{
     "total_recommendations": <int>,
+    "body_words": <int>,
+    "length_budget_words": <int>,
     "by_category": {{
+      "move-to-appendix": <int>,
+      "remove-tic": <int>,
+      "heading-style": <int>,
       "merge-paragraphs": <int>,
       "break-paragraph": <int>,
       "make-list": <int>,
@@ -197,7 +236,10 @@ exact match.
   reformatting, not rewriting. The argument and the evidence stay
   unchanged in the `recommended` field.
 - **Never recommend deleting substantive content.** If a sentence is
-  too long, recommend splitting it — never recommend cutting evidence.
+  too long, recommend splitting it. If the body is over budget,
+  recommend moving blocks to the appendix, never cutting evidence from
+  the vault. Calibration labels and settle-it lines are scaffolding,
+  not evidence; recommending their removal is in scope.
 - **Never recommend changes to H2 heading text.** The synthesizer
   owns section structure, not you. Recommend changes WITHIN sections,
   not across them.
@@ -210,6 +252,8 @@ exact match.
 
 Tell the orchestrator:
 - Path to the recommendations JSON
+- Body word count against `length_budget_words`, and what you
+  recommended moving to the appendix if it is over
 - Total count of recommendations
 - Breakdown by category
 - Highest-severity issue (one sentence)

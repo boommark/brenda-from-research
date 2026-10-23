@@ -41,15 +41,15 @@ Read these inputs:
 
 ## Step 10.0 — Read response_format and citation_style
 
-Read `response_format` and `citation_style` from `research/prompt-decomposition.json`. These control the draft shape:
+Read `response_format`, `citation_style`, `length_budget_words` and `long_form` from `research/prompt-decomposition.json`. These control the draft shape:
 
-| Format | Target length | Character |
+| Format | Body length | Character |
 |--------|-------------|-----------|
 | `"short"` | 500–2000 words / 1500–6000 chars (CJK) | Direct answer, compact |
-| `"structured"` | 2000–5000 words / 6000–15000 chars (CJK) | Scannable, breadth-first |
-| `"analytical"` | 5000–10000 words / 20000–25000 chars (CJK) | Deep, evidence-led, McKinsey/HBR style |
+| `"structured"` | Final body within `length_budget_words` (default 3,000); drafts may run to 1.5x before their `## Appendix material` section | Scannable, breadth-first, tables within eight rows by five columns |
+| `"analytical"` | Final body within `length_budget_words` (default 3,000); drafts may run to 1.5x before their `## Appendix material` section | Decision support written as a human expert would (STYLE-GUIDE.md) |
 
-**Length discipline:** Target the MIDDLE of the range. Under-length loses on comprehensiveness; over-length dilutes good content.
+**Length discipline:** the shipped body is six to seven pages. Reference material (entity tables, matrices, per-account profiles) is unbudgeted but lives under `## Appendix material` in each draft and in `research/notes/appendix_<vault_tag>.md` in the final output, never in the body.
 
 ---
 
@@ -61,19 +61,19 @@ If `pipeline_tier == "light"`: SKIP step 10.1 — 10.3 below and follow this sec
 
 1. **Read the vault directly.** Light tier has no `evidence-digest.md` (step 9 was skipped). Survey the vault: `$HPR search "" --tag <vault_tag> -j` and pick the 8–15 most relevant non-deprecated notes. Read each one (`$HPR note show <id1> <id2> ... -j`) before writing.
 
-2. **Honor the structural contract.**
-   - Use the literal H2 headings from `required_section_headings` in `research/prompt-decomposition.json`, in order, as the body sections.
-   - Wrap them in the report frame: a title with a verb and a stake, a one-sentence dek, `## At a glance` (3-5 one-sentence findings with numbers), a lede opening on a concrete scene or dated fact, `## About the evidence`, then the body, then `## Open questions` and `## Implications` (options with evidence; action list only if the query asks). For `short` format the frame collapses to an opening and a closing paragraph.
-   - House prose: paragraphs 40-70 words, percentages with their base, events with their date, quotes as whole sentences from named people, bold only on run-in list leads, no em-dashes, no first or second person, no numbered headings. Omit dubious claims rather than defend them.
-   - Hit the length target from step 10.0's table for the chosen `response_format` (light typically pairs with `short` or `structured`).
+2. **Honor the structural contract.** Read `STYLE-GUIDE.md` at the vault root first.
+   - Use the H2 topics from `required_section_headings` in `research/prompt-decomposition.json`, in order, as the numbered body sections (at most six; group if there are more and let the appendix keep the full order).
+   - Wrap them in the report frame: a descriptive title naming subject and scope, an italic line with audience and evidence cut-off date, a lead of two or three paragraphs whose first sentence states the controlling finding (no heading, never "This report examines"), a key-numbers table of four to six figures, the numbered noun-phrase body sections with the finding in each section's first sentence, one `### What would change this reading` callout (three to five bullets), `## Options` only when the query asks about choices (bold run-in option, then precedent, requirement, obstacle; described, never ranked), a short `## Closing`, then `## Notes` (footnotes) and `## Further reading` (eight to fifteen links with a one-line note each; the first links the appendix file if one exists). For `short` format the frame collapses to a lead and a closing.
+   - House prose: open each section on a claim worth testing; each paragraph is an assertion, two or three named and dated instances, and a closing sentence with the strongest word last; alternate long evidence sentences with short judgment sentences; anchor every abstraction with a named instance; one figure per sentence paired with its meaning; calibration in words inside the sentence (never "Confidence is medium", never a per-section settle-it line); define terms at the point of need; quotes as whole sentences from named people; even stance (observation, not verdict); bold only on run-in list leads; no em-dashes; no first or second person in the shipped text; no metaphors, hinges or stingers; "operator" rather than "telco" outside quotes. Omit dubious claims rather than defend them.
+   - Body within `length_budget_words` (default 3,000). Tables over eight rows or five columns, per-entity profiles and matrices go to `research/notes/appendix_<vault_tag>.md` with a pointer sentence in the body.
    - Apply the modality calibration from the recover-state list above.
 
 3. **Citations.** Three styles:
-   - `"wikilink"` (default for non-wrapped runs): every citation is a `[[<source-note-id>]]` marker pointing at the source note in the vault. No separate `## Sources` section. Each wikilink resolves to its source note's frontmatter (title + URL). This is the navigable-vault format.
-   - `"inline"` (benchmark + public deliverables): numbered `[N]` citations + a `## Sources` section listing each cited note as `[N] Title. URL` (read each cited note's YAML frontmatter for title + URL).
-   - `"none"`: no citation markers anywhere, no Sources section.
+   - `"wikilink"` (default for non-wrapped runs): `[^N]` footnote markers in the body, one per claim, after the verb or noun it supports, never two in one sentence. A `## Notes` block after the closing lists each as `[^N]: Author or organisation, "Title", date, [[<source-note-id>]]`. The wiki-link inside the footnote resolves to the source note's frontmatter (title + URL). This is the navigable-vault format.
+   - `"inline"` (benchmark + public deliverables): the same `[^N]` markers; `## Notes` entries carry `Author. "Title." Publication, Year. URL` (read each cited note's YAML frontmatter for title + URL).
+   - `"none"`: no citation markers anywhere, no Notes block.
 
-4. **Hygiene.** No YAML frontmatter on the final report. No pipeline vocabulary in prose ("hyperresearch", "evidence digest", "comparisons.md", "committed reading", etc.). When `citation_style == "wikilink"`, `[[<source-note-id>]]` markers ARE the citation system and must be preserved — only strip wikilinks that point at workspace artifacts (interim-*, scaffold, comparisons). Step 15 (polish) is a backstop, not a license to leak.
+4. **Hygiene.** No YAML frontmatter on the final report. No pipeline vocabulary in prose ("hyperresearch", "evidence digest", "comparisons.md", "committed reading", etc.). When `citation_style == "wikilink"`, the `[[<source-note-id>]]` links inside `## Notes` ARE the citation system and must be preserved; only strip wikilinks that point at workspace artifacts (interim-*, scaffold, comparisons). Step 15 (polish) is a backstop, not a license to leak.
 
 5. **Exit and route.** Once `research/notes/final_report_<vault_tag>.md` is written, return to the entry skill and invoke `Skill(skill: "hyperresearch-15-polish")`. Light tier skips steps 11–14 entirely.
 
@@ -84,8 +84,10 @@ If `pipeline_tier == "light"`: SKIP step 10.1 — 10.3 below and follow this sec
 Based on the evidence, tensions, and query, assign each sub-orchestrator a distinct angle. The angles should produce genuinely different drafts — not three versions of the same report. The angles are complementary lenses on the same evidence, NOT opposing sides of a debate. No draft is asked to defend a thesis.
 
 - **Draft A — Breadth-optimized:** widest possible coverage of all atomic items. Every finding the corpus supports, with its confidence.
-- **Draft B — Depth-optimized:** deeper treatment of the 3-4 most important or most contested atomic items. Where credible sources disagree, lay out the evidence on each side, the calibration, and what would settle it. Read the minority-view and methodological-critique sources so their evidence is represented fairly.
-- **Draft C — Practitioner-optimized:** organized around what a decision-maker needs: comparison tables, boundary conditions, applied cases, implications and outlook. Options with evidence for and against, not recommendations.
+- **Draft B, depth-optimized:** deeper treatment of the 3-4 most important or most contested atomic items. Where credible sources disagree, lay out the evidence on each side in prose, say which has the better evidence and why, and send the open points to the callout. Read the minority-view and methodological-critique sources so their evidence is represented fairly.
+- **Draft C, practitioner-optimized:** organized around what a decision-maker needs: comparison tables within the eight-by-five cap, boundary conditions, applied cases, the forward view. Options described with their precedent, requirement and obstacle, not recommendations.
+
+All three drafts read `STYLE-GUIDE.md` and write in its register: six-to-seven-page body, footnotes, appendix material separated. Tell each sub-orchestrator the `length_budget_words` and `long_form` values.
 
 Write the 3 angle assignments to `research/temp/draft-angles.md` (for the run log). Each angle: 2-3 sentences describing the analytical direction.
 
@@ -162,10 +164,15 @@ prompt: |
   - response_format: "<short|structured|analytical>"
   - citation_style: "<wikilink|inline|none>"
   - modality: "<collect|synthesize|compare|forecast>"
+  - length_budget_words: <from the decomposition, default 3000>
+  - long_form: <true|false>
+  - style_guide_path: STYLE-GUIDE.md
 
-  Read every note on must_read_note_ids before writing. Do NOT survey
-  the vault — your reading list is curated. Do NOT fetch new sources.
-  Write your draft from your assigned angle, citing your curated sources.
+  Read STYLE-GUIDE.md and every note on must_read_note_ids before
+  writing. Do NOT survey the vault; your reading list is curated. Do
+  NOT fetch new sources. Write your draft from your assigned angle in
+  the house register, with footnote citations and reference material
+  under a final "## Appendix material" heading.
 ```
 
 **CRITICAL: never emit bare text while the 3 sub-orchestrators are running.** They will take 5-15 minutes each. Use this time to think — append notes to `research/temp/orchestrator-notes.md` about the synthesis you'll plan in step 11: what's the strongest thesis emerging across angles? Which atomic items will be contentious? Which findings must the final draft present, and with what confidence? One vault count check per minute max. Write your thoughts, don't just poll.
@@ -197,7 +204,7 @@ When all 3 sub-orchestrators return:
 ## Exit criterion
 
 **Light tier:**
-- `research/notes/final_report_<vault_tag>.md` exists, hits the length target from step 10.0, follows `required_section_headings`, and respects `citation_style`.
+- `research/notes/final_report_<vault_tag>.md` exists, its body is within `length_budget_words` (or the `short` range), it follows the report frame and `required_section_headings`, and it respects `citation_style`. If reference material was moved out, `research/notes/appendix_<vault_tag>.md` exists and Further reading links it.
 
 **Standard / full tier:**
 - All three drafts exist at `research/temp/draft-{a,b,c}.md`

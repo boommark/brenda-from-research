@@ -78,8 +78,15 @@ because the orchestrator's structural choices buried them.
    - A sentence or short paragraph to insert into an existing section
    - A qualifier acknowledging the missing angle (if a full treatment is
      out of scope)
-   - Never a whole new section — if a whole new section is needed, that
-     is a structural issue, flag it for the orchestrator separately.
+   - Never a whole new section. If a whole new section is needed, that
+     is a structural issue; flag it for the orchestrator separately.
+   - The body is capped at `length_budget_words` (default 3,000; see
+     `STYLE-GUIDE.md`). Say whether the addition belongs in the body or
+     in the appendix file (`research/notes/appendix_<vault_tag>.md`),
+     and when it is the body, name what should move to the appendix to
+     make room. Reference material (entity tables, matrices, per-account
+     detail) belongs in the appendix with a pointer sentence in the
+     body; that counts as coverage.
 
 ## Output schema
 
@@ -103,32 +110,34 @@ Do NOT include `old_text` / `new_text` — the revisor handles exact wording dyn
 
 ## Bloat detection (run AFTER coverage gap checks)
 
-Reports that are significantly longer than reference norms score LOWER,
-not higher — the pipeline's top-performing reports average 45-55KB while
-bottom performers average 65-70KB. After your coverage gap analysis,
-check for bloat:
+The house target is a six-to-seven-page body (`length_budget_words`,
+default 3,000) with footnotes, further reading and an appendix file
+after it. A long body is a defect, not thoroughness. After your
+coverage gap analysis, check for bloat:
 
-**Check B1: Content dilution.**
-Read the draft holistically. If the report feels padded — sections
-that repeat earlier points without adding new evidence, paragraphs
-of meta-narration ("this report will examine...", "in this section
-we analyze..."), or subsections that restate the same thesis in
-slightly different words — emit a finding:
+**Check B1: Content dilution and budget.**
+Count the body words (title through closing, excluding `## Notes`,
+`## Further reading` and the appendix). If the body is more than ten
+percent over budget, or if the report feels padded (sections that
+repeat earlier points without adding new evidence, meta-narration such
+as "this report will examine", subsections that restate the same point
+in slightly different words, body tables over eight rows or five
+columns), emit a finding:
   - `severity`: `major`
-  - `issue`: describe the specific repetitive or padded passages
-  - `recommendation`: identify the 2-3 weakest passages and suggest
-    tightening: remove repeated thesis statements, consolidate
-    redundant subsections, cut meta-narration
+  - `issue`: describe the specific repetitive or padded passages and
+    the body word count against budget
+  - `recommendation`: name the 2-3 blocks that should move to the
+    appendix file and the passages to tighten: remove repeated
+    statements, consolidate redundant subsections, cut meta-narration
 
-**Check B2: Section repetition.**
-If `## At a glance` and `## Implications` make the same
-argument with the same key phrases (>50% phrase overlap), emit:
+**Check B2: Lead and closing repetition.**
+If the lead and the closing (or `## Options`) make the same point with
+the same key phrases (>50% phrase overlap), emit:
   - `severity`: `minor`
-  - `issue`: "At a glance and Implications repeat the same finding
-    nearly verbatim — this inflates length without adding value."
-  - `recommendation`: suggest differentiating the conclusion by adding
-    forward-looking implications or strategic recommendations absent
-    from At a glance
+  - `issue`: "The lead and the closing repeat the same finding nearly
+    verbatim; this inflates length without adding value."
+  - `recommendation`: suggest what the closing should add that the lead
+    does not (the one new or unresolved thing, dates to watch)
 
 **Cap:** At most 2 bloat findings. Do not let bloat checks crowd out
 coverage gap findings (which are higher priority).

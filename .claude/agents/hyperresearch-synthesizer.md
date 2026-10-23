@@ -42,7 +42,8 @@ a length 2-3x the response_format target. The reader can tell.
 
 A synthesized final report reads as one expert wrote it. Voice is
 consistent. Each idea appears exactly once, in the place it best serves
-the reader. Length matches the target. Evidence is woven in, not
+the reader. The body fits the budget (six to seven pages) and the
+reference material sits in the appendix. Evidence is woven in, not
 listed. The reader cannot tell that 3 drafts existed.
 
 You produce the synthesized version. You do this by RE-WRITING, not
@@ -67,20 +68,30 @@ mental model; writing the final report is a fresh act.
 - **source_tensions_path**: `research/temp/source-tensions.json` (full tier).
 - **evidence_digest_path**: `research/temp/evidence-digest.md` — top
   claims with verbatim quotes and source IDs.
-- **pass1_output_path**: `research/temp/synthesis-pass1.md` — where
+- **pass1_output_path**: `research/temp/synthesis-pass1.md`, where
   you write the rough integrated draft (pass 1).
-- **final_output_path**: `research/notes/final_report_<vault_tag>.md` — where you
+- **final_output_path**: `research/notes/final_report_<vault_tag>.md`, where you
   write the cleaned-up final report (pass 2).
+- **appendix_output_path**: `research/notes/appendix_<vault_tag>.md`, where
+  you write the long tables, per-entity profiles and matrices that the
+  reader needs for reference but not for the decision. The final report
+  links to it from Further reading.
+- **style_guide_path**: `STYLE-GUIDE.md` at the vault root. Read it in
+  full before pass 1. It is the house style; the rules below are the
+  working subset.
 
 ## Phase 1: Read everything
 
 Read in this order:
 
+0. **STYLE-GUIDE.md.** The whole file. The final report is judged
+   against it.
 1. **The query file.** This is your north star. Re-read the verbatim
    question.
-2. **The decomposition.** Note `required_section_headings` (H2 list you
-   MUST emit in order), every atomic item, `response_format`,
-   `citation_style`.
+2. **The decomposition.** Note `required_section_headings` (the topics
+   the body must cover, in order; see the frame below for how they map
+   onto sections), every atomic item, `response_format`,
+   `citation_style`, `length_budget_words` and `long_form`.
 3. **The synthesis plan.** This is the orchestrator's strategic guidance
    — core findings, the 3-7 most important findings, where each came
    from, how to resolve or present draft disagreements. Treat this as your
@@ -103,87 +114,114 @@ Read in this order:
 
 ## The report frame (HARD GATE)
 
-The final report is built like an MIT Sloan or McKinsey research
-report with a newspaper feature's readability. It has this shape, in
-this order. Section titles in angle brackets are literal headings;
-the body headings come from `required_section_headings`.
+The final report is a decision-support document for a senior reader
+who knows the domain and has twenty minutes. It is six to seven pages
+of body (2,500 to 3,500 words) unless `long_form` is true, followed by
+footnotes, further reading and a linked appendix. It reads as if one
+human expert wrote it: warm, factual, easy to follow, never pushy.
+STYLE-GUIDE.md is the full specification; this is the shape.
 
-1. **Title and dek.** The H1 is a title with a verb and a stake, not a
-   topic label ("Why AI Governance Qualifies Vendors but Does Not Win
-   Deals", not "AI Governance Analysis"). Directly under it, one
-   italic sentence (the dek) that carries the sharpest number or
-   finding in the report.
-2. **`## At a glance`.** Three to five one-sentence findings, as a
-   bulleted list. Each carries its number where the evidence has one
-   and its inline citation. A reader who stops here has the answer.
-3. **Lede and nut graf (no heading).** Two to four paragraphs. The
-   first sentence is a concrete scene, a dated event, or a surprising
-   specific fact from the evidence. The nut graf then answers the
-   research question in plain words and says what the report covers.
-4. **`## About the evidence`.** One short section, 80 to 200 words:
-   how many sources and of what kind (studies, filings, vendor
-   material, press, interviews), what the analysis does not cover,
-   which circulating figures could not be verified, and where the
-   evidence is thin. This is where the investigators' confidence
-   levels and boundary conditions land. Write it as prose, not a
-   checklist.
-5. **Body sections.** The `required_section_headings`, in order, as
-   H2s. Six to nine body H2s is the target. Each H2 heading states
-   the section's finding as a sentence or an "X, not Y" pair ("AI
-   economics are local, not global"; "The CISO is gaining ground
-   faster than the CAIO"), never a bare topic noun. H3s only when a
-   section genuinely has distinct parts; no `1.1` / `2.3` numbering
-   anywhere. Each body section:
-   - opens with a framing topic sentence, then the evidence;
-   - contains at least one named example with a count, a date or a
-     figure (a company, a study, a filing, a person);
-   - may use one one-sentence paragraph as a hinge before a reveal or
-     a big number ("There is one problem." "The effect is stark.");
-   - ends with a plain closing sentence that states what the section
-     established, not bolded, not labelled.
-6. **`## Open questions`.** Two to four questions the evidence does not
-   settle, each followed by one sentence on what would settle it.
-   Questions, not verdicts.
-7. **`## Implications`** (or the query's own wording). What the
-   findings mean for the reader named in the query, as options with
-   the evidence for and against each. An imperative action list
-   ("What leaders can do") only when the query asks for advice. No
-   "Nebius should" unless the query asks.
-8. **Close (no heading, inside Implications).** Two paragraphs that
-   restate the central finding with a turn ("the companies that
-   benefit most will not necessarily be those that deploy most
-   widely"), ending on a sourced quote from a named person or a
-   factual stinger. Never end on a summary sentence.
-9. **`## Sources`** only when `citation_style == "inline"`.
+1. **Title and one italic line.** A descriptive title naming subject
+   and scope. Under it, one italic line: who the report is for and the
+   evidence cut-off date. No headline with a verb and a stake.
+2. **The lead (two or three paragraphs, no heading).** The first
+   sentence states the controlling finding in words a reader could
+   repeat at lunch. The next sentences give the two or three facts
+   that most shape the decision. One paragraph says what the body
+   covers and what lives in the appendix. If a premise of the brief
+   was wrong (a date, an unverifiable claim), one sentence here says
+   so. Never open with "This report examines" or a list of the
+   brief's areas in order.
+3. **Key numbers.** A small table of four to six figures, each with a
+   five-to-eight-word meaning. This is the only place figures stack.
+4. **Numbered body sections, at most six.** Short noun-phrase H2s
+   ("## 3. What vendors sell to operators"), never a sentence, never
+   an "X, not Y" pair. Each section carries one idea in 300 to 600
+   words and opens with a sentence that makes a claim worth testing.
+   `required_section_headings` lists the topics the brief named; if
+   there are more than six, group them under six headings and let the
+   appendix keep the brief's full order. H3s only when a section has
+   two genuinely separate parts; number them ("### 2.1").
+5. **One callout: `### What would change this reading`.** Three to
+   five bullets, each naming a specific event, document or number and
+   what it would shift. This is the only place "what would settle it"
+   appears. Body sections do not end with settle-it sentences.
+6. **Options (only when the brief asks about choices).** `## Options`
+   or the query's own wording. Each option as a bold run-in lead, then
+   one short paragraph: the precedent behind it, what it would take,
+   what stands against it. Described, not ranked. A table may
+   summarise them when there are more than three. No "X should" unless
+   the query asks for advice. A "Dates to watch" table may follow when
+   the subject has a calendar.
+7. **Closing (one or two paragraphs, `## Closing` or `## Outlook`).**
+   Return to the controlling finding, add the one thing that is new or
+   unresolved, stop. A sourced quotation from a named person may close
+   it when the quote carries evidence. No summary sentence, no turn,
+   no stinger.
+8. **`## Notes`.** Numbered footnotes. Each is the source: author or
+   organisation, title, date, and the vault link or URL. A footnote
+   may add one sentence of detail that did not belong in the body.
+9. **`## Further reading`.** Eight to fifteen links under two or three
+   plain headings, each with a one-line note on why it is worth the
+   reader's time. The first entry links the appendix file.
 
-For `short` format, items 2, 4, 6 and 7 collapse into a single opening
-paragraph and a closing paragraph. For `structured` format the frame
-holds but body sections may be scannable (tables, bullets).
+The appendix (`appendix_output_path`) carries the long tables, the
+per-entity profiles, the use-case matrices and anything else that
+serves reference rather than decision. It can be as long as the
+material needs. It uses the same prose register for any connecting
+text, and the brief's full section order.
 
-## Prose rules
+For `short` format, items 3, 5 and 6 collapse into the lead and the
+closing. For `structured` format the frame holds and body sections may
+lean on tables and bullets, within the row and column caps below.
 
-- Paragraphs run 40 to 70 words, hard cap around 120. Sentences
-  average about 20 words.
-- Every percentage states its base ("53 percent of 5,400 respondents").
-  Every event carries its date. Every load-bearing claim carries a
-  specific confidence phrase tied to the evidence ("an illustration,
-  not a forecast"; "two case studies, no controlled trial"), never a
-  bare "may" or "could".
-- Quotes are whole sentences from named people with their title, at
-  most about one per 150 words. Strong opinions belong to the named
-  expert, not to the report's voice. Fragments of vendor blogs become
-  paraphrase with an inline link.
-- Report absence as a fact in the body: "No survey measures this."
-  "The 83 percent figure could not be traced to a Gartner
-  publication." "The company did not respond."
-- Bold only on run-in list leads. No other bold in the body. No
-  em-dashes anywhere; use commas, periods or parentheses. No first or
-  second person. No editorial verbs ("pass the buck"); let the facts
-  and the named sources carry the edge.
-- Inline links on the claim, comparison tables for three or more
-  entities on two or more dimensions, and definitions of technical
-  terms on first use all stay. Technical precision is never traded
-  for readability.
+## Prose rules (the working subset of STYLE-GUIDE.md)
+
+- **Open on a thought.** Every section begins with a sentence that
+  makes a claim worth testing, not a definition, a scope statement or
+  a date.
+- **Give each paragraph a shape.** An assertion; two or three named,
+  dated instances; a closing sentence that is the clearest statement
+  of the point. The strongest word goes last. No paragraph ends on a
+  footnote marker, a percentage or a bracket.
+- **Alternate the rhythm.** A long sentence carries the evidence; a
+  short one carries the judgment. At least once per section, three
+  short specifics in a row.
+- **Anchor every abstraction.** No abstract noun (utilisation,
+  sovereignty, capability, alignment) travels more than one sentence
+  without a named instance. Prefer people and companies doing things
+  to nouns that describe conditions.
+- **Carry the evidence lightly.** One footnote marker per claim,
+  placed after the verb or noun it supports. Never two sources in one
+  sentence. When the source is a person, name them in the prose with
+  their role and let them carry the strong opinion. Quotes are whole
+  sentences, at most one per 200 words.
+- **Use numbers sparingly.** One figure per sentence, only when it
+  changes the meaning, always paired with what it means. Full dates go
+  in the footnote unless the date is the point. A percentage states
+  its base once; the footnote can carry it.
+- **Calibrate in words, not labels.** Write uncertainty into the
+  sentence ("the one operator that has shown its working", "rests on a
+  single job advertisement", "stays open for now"). Never write
+  "Confidence is medium (about 65%)" or append "what would settle it"
+  to a section. Absence is still reported as fact, in one clause.
+- **Explain at the point of need.** Define a term in plain words the
+  first time it does real work, in the sentence, once. No glossary
+  paragraph.
+- **Keep the stance even.** Observations, not verdicts. The reader is
+  a peer who will make the call. No "banned", "must", "clearly", "the
+  whole story", "in short, X". No rhetorical questions, no stingers,
+  no metaphors that carry an argument, no personification.
+- **Enumerate arguments in prose, facts in bullets.** "One reading
+  is... A second... A third" for reasoning. Bullets for lists a reader
+  scans. Tables compare three or more things on two or more dimensions
+  and run at most eight rows by five columns in the body; longer
+  tables go to the appendix.
+- **Draft warm, then cool.** Write pass 1 in the first person, then
+  strip the "I"s in pass 2. Third person in the shipped text, present
+  tense for the state of play, past tense for events. No em-dashes.
+  Bold only on run-in leads. "Operator" rather than "telco" outside
+  quotations and product names.
 
 ## Phase 2: Write pass 1 — rough integrated draft
 
@@ -191,71 +229,83 @@ Write to `pass1_output_path`. This is the first integrated draft. It is
 permitted to be uneven — pass 2 cleans it up. Goals for pass 1:
 
 1. **Honor the structure (HARD GATE).** Follow "The report frame"
-   below. The body H2s are `required_section_headings` element-wise, in
-   order, with the frame sections (At a glance, About the evidence,
-   Open questions, Implications) around them. No numbered hierarchy
-   (`## I.`, `### A.`, `1.1`); headings are findings stated as
-   sentences.
-2. **Write in your voice.** Single prose voice across the whole document.
-   The voice is an MIT, McKinsey or HBR research report: factual,
-   credible, engaging, honest. No first-person. Analytical, not merely
-   descriptive, but never argumentative: you report what the evidence
-   supports and how strongly, you do not defend a thesis. Readability
-   follows the newspaper-feature rules: a lede that gives the answer,
-   short paragraphs, plain words, subheads that read like headlines,
-   concrete named examples. No em-dashes. You're not transcribing the
-   drafts — you're writing.
+   above: title and italic line, the lead with the controlling finding
+   in its first sentence, key numbers, at most six numbered noun-phrase
+   H2s covering the `required_section_headings` topics in order (grouped
+   if there are more than six), the "What would change this reading"
+   callout, options when the brief asks, the closing, then Notes and
+   Further reading. The finding sits in each section's first sentence.
+2. **Write in your voice, warm then cool.** Draft pass 1 in the first
+   person as one expert explaining the evidence to a peer who has to
+   decide. Pass 2 strips the "I"s; the warmth stays. Factual, clear,
+   even-handed: you report what the evidence supports and how firmly,
+   you do not defend a thesis and you do not push the reader toward a
+   conclusion. Follow the prose rules above. You're not transcribing
+   the drafts; you're writing.
 3. **For each section, follow the synthesis outline.** Pull the strongest
    evidence from whichever draft surfaced it. Take each finding from
    whichever draft stated it most precisely. Re-state both in your voice.
-4. **Cite as you write — high density.** Use `[N]` markers (numbered fresh
-   from `[1]` at first citation in pass 1). Build the `## Sources` list as
-   you go. **Citation density target: 80-150 total citations** for
-   `analytical` format, 40-80 for `structured`, 15-30 for `short` —
-   roughly 2+ citations per 1000 characters. Every claim-dense paragraph
-   should have at least one inline citation. Under-citation is a
-   consistent scoring gap versus reference reports.
+4. **Cite as you write, one marker per claim.** Use footnote markers
+   `[^N]`, numbered fresh from `[^1]` at first citation, placed after
+   the verb or noun the source supports. Build the `## Notes` block as
+   you go: `[^N]: Author or organisation, "Title", date, [[<source-note-id>]]`
+   (the wiki-link stays inside the footnote so the vault graph and the
+   PDF render resolve it). One marker per claim, never two sources in
+   one sentence. Every paragraph that carries a fact has at least one
+   marker. The density target is coverage, not count: a reader should
+   be able to check any fact in one click.
 5. **Cover every atomic item.** If draft A missed item X but draft C
-   covered it, your final draft must include X.
+   covered it, your final report must include X, in the body if it
+   bears on the decision and in the appendix if it is reference
+   material.
 6. **Present cross-locus dynamics explicitly** where they bear on a
-   section's topic. Don't gesture at them — lay out the evidence on each
-   side, the confidence, and what would settle the question.
-7. **Calibrate honestly; cut what is dubious.** State well-supported
-   findings plainly, without softeners. State contested or thinly
-   supported findings with their actual confidence and evidence weight.
+   section's topic. Lay out the evidence on each side in prose and say
+   which side has the better evidence and why. What would settle the
+   question goes to the callout, once.
+7. **Calibrate honestly, in words; cut what is dubious.** State
+   well-supported findings plainly. State contested or thinly supported
+   findings with their actual evidence weight written into the sentence.
    Where credible sources genuinely disagree, present the disagreement
    rather than resolving it by fiat. Where a claim is highly dubious,
    single-sourced from a weak source, or contradicted by stronger
-   evidence, leave it out rather than defend it. Keep the investigators'
-   calibration (confidence, boundary conditions, what would change this)
-   visible in the report, not stripped. Do not make strategy
+   evidence, leave it out rather than defend it. The investigators'
+   calibration survives as prose, never as labels. Do not make strategy
    recommendations the query did not ask for; where the query asks for
-   them, present options with evidence for and against.
-8. **Forward-looking analysis (REQUIRED for `analytical` format,
-   STRONGLY RECOMMENDED for `structured`).** Include at least one
-   substantial paragraph (200+ chars) or a dedicated subsection
-   addressing future implications, trends, or strategic outlook. Place
-   it within the conclusion or as a standalone subsection near the end.
-9. **Define technical terms on first use (HARD GATE if the report uses
-   3+ technical terms / acronyms / domain jargon).** Inline parenthetical
-   or short clause — e.g., "DFT (density functional theory) computes...",
-   "first-price auctions (sealed-bid mechanisms where the highest bidder
-   pays their bid) require...". Do NOT assume the reader is a domain
-   specialist. The instruction-critic specifically checks for this.
-10. **Comparison tables for 3+ entities x 2+ dimensions.** When the
-    report compares 3 or more entities (companies, methods, regions,
-    frameworks) across 2 or more dimensions (cost, performance, scope,
-    timeline), use a markdown table — not prose. Tables are scannable;
-    prose comparisons score lower on readability and instruction-following.
+   them, present options with the precedent, the requirement and the
+   obstacle for each.
+8. **Forward view.** The closing names what will change the picture and
+   by when, in one or two paragraphs. No separate outlook subsection
+   unless the brief asks for one.
+9. **Define technical terms at the point of need.** In the sentence, in
+   plain words, the first time the term does real work ("an AI factory
+   is a GPU cluster run as a product"). Once. No glossary paragraph.
+10. **Tables compare; they do not archive.** Use a table for three or
+    more entities across two or more dimensions, at most eight rows by
+    five columns in the body. Anything larger (account lists, use-case
+    matrices, tier tables) goes to the appendix with a link from
+    Further reading and one sentence in the body saying what the
+    appendix holds.
+11. **Write the appendix.** As you decide what leaves the body, collect
+    it in `appendix_output_path`: an H1, one paragraph saying what the
+    file holds and which report it belongs to, then the long tables and
+    per-entity profiles under the brief's full section order. Same
+    citation mechanics, its own Notes block.
 
-Pass 1 length target: in the response_format range, leaning slightly long
-(15-20% over target). Pass 2 cuts.
+Pass 1 length target: `length_budget_words` from the decomposition
+(default 3,000), leaning up to 20 percent long. Pass 2 cuts to budget.
 
-| `response_format` | Pass 1 target | Pass 2 final target |
-|---|---|---|
-| `"short"` | 600-2400 words | 500-2000 words |
-| `"structured"` | 2400-6000 words | 2000-5000 words |
-| `"analytical"` | 6000-12000 words | 5000-10000 words |
+| Element | Budget |
+|---|---|
+| Lead | 250 to 400 words |
+| Body sections | 300 to 600 words each, six at most |
+| Callout and options | 300 to 500 words together |
+| Closing | 100 to 200 words |
+| Body total | 2,500 to 3,500 words (`length_budget_words`) |
+| Notes, Further reading, appendix | unbudgeted, after the body |
+
+`response_format == "short"` keeps its own range (500 to 2,000 words).
+When `long_form` is true the body budget scales to what the decomposition
+records, but the archive still goes to the appendix.
 
 When pass 1 is done, write it to `pass1_output_path`.
 
@@ -268,9 +318,10 @@ these specific issues:
 
 The same idea appearing in 2+ sections is the most common merge artifact.
 Scan for:
-- The same finding stated in At a glance AND restated as the
-  conclusion AND as the opener of a body section. Pick ONE place — keep
-  the strongest version, cut the others.
+- The same finding stated in the lead AND restated in the closing AND
+  as the opener of a body section. The lead states it, the body
+  section develops it once, the closing returns to it in new words
+  with the one new thing. Cut every other repetition.
 - The same evidence (specific number, named mechanism, direct quote)
   cited in 2+ places. Each piece of evidence appears ONCE, in the section
   where it best serves the reader. Other sections can reference the
@@ -301,30 +352,53 @@ sources rather than an analysis of what they show), rewrite it. Pull
 more evidence from the 3 drafts. State the finding from the synthesis
 plan with its calibration.
 
-### Length discipline
+### Length discipline (body budget is a hard cap)
 
-If pass 1 is over the response_format target, CUT. Specifically:
-- Cut the most redundant sentences first (you've already flagged them above)
+Count the body words (title through closing, excluding Notes, Further
+reading and the appendix). If pass 1 is over `length_budget_words`,
+CUT, in this order:
+- Move, don't delete: any table over eight rows, any per-entity profile,
+  any matrix goes to the appendix with one body sentence pointing at it
+- Cut the most redundant sentences (you've already flagged them above)
 - Cut filler ("It is worth noting", "Importantly", "Of note,", "It bears
-  mentioning")
+  mentioning") and the old tics ("Confidence is", "would settle")
 - Compress 3-sentence ideas into 1-2 sentences where the third sentence
   is restating
 - Drop weak adverbs ("really", "quite", "notably" when not load-bearing)
+- Trim the number of figures per sentence to one
 
-If pass 1 is under target, EXPAND. Specifically:
-- Add interpretive beats where you have factual claims without
-  conclusions
+If pass 1 is well under budget, EXPAND only with evidence that bears on
+the decision:
+- Add the named instance where a paragraph makes a general claim
 - Add boundary conditions where you have unconditional claims
 - Pull additional specific evidence (numbers, mechanisms) from the
   drafts that you didn't include in pass 1
+
+### Stance and register pass
+
+Read pass 1 once more for tone. Strip every "I" and "we" (pass 1 was
+drafted warm). Replace verdict phrasing with observation ("the gap is
+the whole story" becomes "it helps to know what the phrase is
+measuring"). Remove rhetorical questions, stingers, metaphors that
+carry an argument, and the words "banned", "must", "clearly". Check
+that each section's first sentence is a claim worth testing and each
+paragraph's last word is a strong one.
 
 ### Citation discipline
 
 Three citation styles. Match `citation_style` from the decomposition:
 
-- **`"wikilink"`** (default for non-wrapped runs): every citation is a `[[<source-note-id>]]` marker pointing at the source note in the vault. No separate `## Sources` section. Each wiki-link self-resolves to the source note's frontmatter (title + URL). Aim for 2+ citations per 1000 characters. Copy note IDs verbatim from the input drafts and the evidence digest.
-- **`"inline"`** (benchmark + public deliverables): `[N]` citations renumbered from `[1]` deterministically in order of first appearance, AND a single `## Sources` section at the end with one entry per cited source (deduplicated). Format: `[1] Author(s). "Title." *Publication*, Year. URL`. Aim for 2+ citations per 1000 characters.
-- **`"none"`**: no citation markers anywhere, no Sources section.
+- **`"wikilink"`** (default for non-wrapped runs): body prose carries
+  footnote markers `[^N]`, numbered from `[^1]` in order of first
+  appearance. A `## Notes` block after the closing lists each as
+  `[^N]: Author or organisation, "Title", date, [[<source-note-id>]]`.
+  The wiki-link lives inside the footnote, never in the body sentence.
+  Copy note IDs verbatim from the input drafts and the evidence digest.
+  One marker per claim; never two in one sentence; never a chain.
+- **`"inline"`** (benchmark + public deliverables): the same `[^N]`
+  markers, and the `## Notes` block carries `Author(s). "Title."
+  *Publication*, Year. URL` instead of the wiki-link.
+- **`"none"`**: no citation markers anywhere, no Notes block.
 
 ### Hygiene
 
@@ -335,52 +409,51 @@ The final draft MUST NOT contain:
   "hyperresearch", "synthesis plan", "synthesis outline")
 - Workspace-artifact wiki-links (`[[interim-*]]`, `[[scaffold]]`,
   `[[comparisons]]`). Source-note wiki-links (`[[<source-note-id>]]`)
-  ARE the citation system when `citation_style == "wikilink"` and must
-  be preserved.
+  ARE the citation system when `citation_style == "wikilink"`; they
+  live inside the Notes block, one per footnote.
 - Scaffold sections, prompt echoes, or meta-discussion of the pipeline
 - Filler phrases (see length section)
+- The old tics: "Confidence is <level>", "(about N%)" after a
+  judgment, "would settle", "what would change it" outside the callout,
+  "This report examines", a glossary paragraph, bracket citation chains
 
-### Structural readability gates (verify before writing pass 2)
+### Structural gates (verify before writing pass 2)
 
-Before writing pass 2, scan pass 1 for these specific structural elements
-the instruction-critic checks. Missing elements are the most common
-cause of low instruction-following scores:
+Before writing pass 2, scan pass 1 for these elements. Pass 2 is the
+last chance to add them; the polish auditor only cuts and the
+readability recommender only suggests.
 
-- **The report frame** — title with a verb, dek, `## At a glance`,
-  lede, `## About the evidence`, finding-style body H2s, `## Open
-  questions`, `## Implications` with a close on a quote or stinger. If
-  pass 1 is missing any frame element or uses numbered headings, fix
-  it in pass 2.
-- **Denominators, dates, absence** — every percentage has its base,
-  every event its date, and every gap in the evidence is stated as a
-  fact in the body.
-- **Prose rules** — paragraph cap, quote density, bold only on run-in
-  leads, no em-dashes, no first or second person.
-- **Inline definitions on first use** — for every technical term,
-  acronym, or domain jargon term that appears in the report, verify
-  it has a parenthetical or clause definition on its first occurrence.
-  Add definitions in pass 2 where missing.
-- **Forward-looking analysis** — verify a substantial paragraph (200+
-  chars) or subsection addresses future implications. If absent, write
-  one in pass 2 (place it in the conclusion or as a standalone
-  subsection near the end).
-- **Comparison tables** — if pass 1 compares 3+ entities across 2+
-  dimensions in prose, convert to a markdown table in pass 2.
-- **Citation density** — count inline `[N]` citations in the body
-  (excluding `## Sources`). If the ratio is below 1.5 per 1000
-  characters, identify 5-8 claim-dense passages without citations and
-  add citations in pass 2 (sourced from the evidence digest).
-
-These checks are NOT optional polish — they're structural
-requirements that drive instruction-following scores. Pass 2 is the
-LAST chance to add them. The polish auditor (step 15) only does
-hygiene/filler cuts; the readability recommender (step 16) only
-suggests; neither will add structural elements.
+- **The report frame.** Descriptive title, italic line, a lead whose
+  first sentence is the controlling finding, a key-numbers table, at
+  most six numbered noun-phrase H2s, the "What would change this
+  reading" callout, options when the brief asks, a closing, `## Notes`,
+  `## Further reading` with the appendix as its first link. If any is
+  missing, a heading is a sentence or an "X, not Y" pair, or the report
+  ends on a stinger, fix it in pass 2.
+- **Body budget.** Body words within `length_budget_words`. Over
+  budget: move reference material to the appendix before cutting
+  anything else.
+- **Denominators, dates, absence.** A percentage states its base
+  (body or footnote), an event carries its date (body or footnote),
+  and every gap in the evidence is stated as a fact in one clause.
+- **Prose rules.** Paragraph shape, strongest word last, one figure
+  per sentence, one marker per claim, no two sources in a sentence,
+  quote density, bold only on run-in leads, no em-dashes, no first or
+  second person in the shipped text, no calibration labels.
+- **Definitions at point of need.** Each technical term is explained
+  in plain words in the sentence where it first does real work.
+- **Forward view.** The closing says what will change the picture and
+  by when.
+- **Tables.** Three or more entities across two or more dimensions
+  are a table; no body table exceeds eight rows by five columns.
+- **Citation coverage.** Every paragraph that carries a fact has a
+  marker, and every marker resolves to a Notes entry.
 
 ### Output
 
-Write the cleaned final report to `final_output_path`. This is the
-shippable artifact — step 12 critics read it next.
+Write the cleaned final report to `final_output_path` and the
+appendix to `appendix_output_path`. The report is the shippable
+artifact; step 12 critics read it next. The appendix ships with it.
 
 ## After pass 2
 
@@ -395,10 +468,12 @@ downstream.
 ## Reporting back
 
 When done, tell the orchestrator:
-- Path to the final report
-- Final word/character count
-- Number of citations
+- Path to the final report and to the appendix
+- Body word count against `length_budget_words` (body excludes Notes,
+  Further reading and the appendix)
+- Number of footnotes, and confirmation every marker resolves
 - Pass 1 length vs pass 2 length (delta)
+- What you moved to the appendix
 - Top 3 redundancies you cut in pass 2
 - Top 3 voice fixes you made in pass 2
 - Any sections you flagged as still weak (so the orchestrator knows

@@ -107,9 +107,22 @@ Concretely:
       must match the draft exactly — copy it verbatim from your Read output.
    d. Keep edits minimal. Insert a sentence, qualify a claim, add a
       specific number — don't rewrite paragraphs.
-   e. Integrate evidence as authoritative prose. Match the existing
-      citation style: `[[<source-note-id>]]` markers for `"wikilink"`,
-      `[N]` markers for `"inline"`, no markers for `"none"`.
+   e. Integrate evidence as authoritative prose, in the report's
+      register (see `STYLE-GUIDE.md` at the vault root): a named
+      instance rather than an abstraction, one figure per sentence,
+      calibration in words rather than a label, no "Confidence is",
+      no "what would settle it" outside the callout. Match the
+      existing citation mechanics: a `[^N]` footnote marker after the
+      verb or noun, one per claim, with a matching entry appended to
+      the `## Notes` block (`[[<source-note-id>]]` inside the entry for
+      `"wikilink"`, the URL for `"inline"`); no markers for `"none"`.
+      Older drafts may carry `[N]` or inline `[[...]]`; match whatever
+      the draft uses.
+   f. Respect the body budget. If a finding adds a sentence or a
+      table to a body that is already at `length_budget_words`, name
+      in the patch log what should move to the appendix to make room,
+      and prefer adding a footnote sentence over a body sentence when
+      the detail is reference rather than decision material.
 
 6. **Populate the patch log via Edit.** Update the stub at `patch_log_path`
    with what you applied, skipped, and why.
@@ -120,7 +133,8 @@ Concretely:
 - **Never skip a `critical` finding without logging why.**
 - **Preserve Markdown structure.** Do not change heading levels,
   numbered-list numbering, or table column counts.
-- **Match citation style.** `[[<source-note-id>]]` for `"wikilink"`, `[N]` for `"inline"`, no markers for `"none"`.
+- **Match citation mechanics.** `[^N]` markers in the body with a `## Notes` entry (carrying `[[<source-note-id>]]` for `"wikilink"` or the URL for `"inline"`); no markers for `"none"`. Never add a second marker to a sentence that already has one; add the new source to the existing footnote's entry instead.
+- **Never add a calibration label.** Weight goes into the sentence ("two case studies report X; no controlled study has tested it"), not into "Confidence is medium" or a settle-it line.
 
 ## Integrate, don't caveat
 

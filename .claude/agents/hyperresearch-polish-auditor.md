@@ -68,9 +68,12 @@ Also strip:
 - Literal prompt echoes ("User prompt:", "The query is:", etc.)
 - Leftover backticks around section headings
 - Stray "Here is the report:" / "Below is the draft:" preamble lines
-- **Citation pass-through.** Leave all `[N]` inline citations and the
-  Sources/References section exactly as the drafter wrote them.
-  Citations are a product feature, not a polish target.
+- **Citation pass-through.** Leave all `[^N]` footnote markers and the
+  `## Notes` block exactly as the drafter wrote them (older drafts may
+  carry `[N]` and a Sources section; treat those the same way).
+  Citations are a product feature, not a polish target. The one
+  exception is a chain of two or more markers on one claim, which you
+  reduce to the single best-supported marker (section 5).
 
 Every leak is a **critical** polish fix. Apply as an Edit that removes
 the offending block entirely.
@@ -195,21 +198,36 @@ Edit out sentences that restate the prior sentence. If a paragraph ends
 with a sentence that summarizes what the prior two sentences said, the
 summary sentence usually goes.
 
-### 3a. Confidence language must match the evidence
+### 3a. Confidence language must match the evidence, and live in the sentence
 
-The report's voice is an MIT, McKinsey or HBR research report: it
-states what the evidence supports, as strongly as the evidence
-allows and no more. Your job here is calibration, in both directions.
+The report's voice is a human expert writing decision support (see
+`STYLE-GUIDE.md` at the vault root; read it once before you start). It
+states what the evidence supports, as firmly as the evidence allows
+and no more, and it says so in words, not labels. Your job here is
+calibration, in both directions, and the removal of calibration
+scaffolding.
 
+- **Calibration labels.** Delete every "Confidence is <level>",
+  "(about N%)" after a judgment, "medium confidence that", and every
+  per-section "what would settle it" or "would change this reading"
+  sentence outside the single `### What would change this reading`
+  callout. Where the deleted sentence carried a real boundary
+  condition, fold it into the preceding sentence as a clause ("...,
+  though no operator has yet published GPU-hours"). If the report has
+  no callout and the deleted sentences carried genuine open points,
+  log an escalation naming them; do not create the callout yourself.
 - **Empty softeners on well-supported claims.** Where the same
   paragraph cites evidence that directly supports the claim, filler
   like "it could perhaps be argued that" adds nothing. "Data X shows
-  Y [3]" is better than "Data X may possibly suggest Y [3]". Tighten
-  these.
+  Y" is better than "Data X may possibly suggest Y". Tighten these.
 - **Honest qualifiers stay.** "suggests", "may", "appears to",
   "in the cases studied" are correct when the evidence is partial,
   contested, or a forecast. Never strike a qualifier that reflects
   real uncertainty. When in doubt, keep it.
+- **Verdict phrasing.** Soften "the gap is the whole story", "in
+  short, X", "clearly", "must", "banned" to observation ("it helps to
+  know what the phrase is measuring"). Remove rhetorical questions.
+  The reader is a peer who will make the call.
 - **Overstatement on thin evidence.** A flat assertion resting on one
   weak source, a vendor claim, or a contested finding is the bigger
   problem. Qualify it to its actual evidence weight, or if it is
@@ -232,54 +250,73 @@ Spot paragraphs or bullets that say the same thing twice across
 different sections. Cut the weaker occurrence. Do not merge full
 sections — that's regeneration.
 
-**4a. At a glance ↔ Implications deduplication (high priority).**
-The most common repetition pattern: `## At a glance` states 3-5
-key findings, then `## Implications` restates the same
-findings with nearly identical phrasing. This inflates length
-without adding value. Check: do the two sections share key phrases
-or finding statements? If yes, edit the Synthesis to go beyond the
-At a glance — confidence and boundary conditions per finding,
-forward-looking implications, open questions, decision criteria, or
-options with evidence for and against, that At a glance did not
-include. If the synthesis genuinely adds nothing beyond the exec
-summary, cut the redundant paragraphs and keep only the unique
-material (calibration, "what would change this", open questions).
-Do NOT cut from At a glance — the reader sees it first.
+**4a. Lead, body and closing deduplication (high priority).** The
+most common repetition pattern: the lead states the controlling
+finding, a body section restates it as its opener, and the closing
+restates it again in the same words. The lead states it, the body
+develops it once, the closing returns to it in new words with the one
+new thing. Where the closing or the options section repeats the lead
+nearly verbatim, cut the repeated sentences and keep only what goes
+beyond the lead. Do NOT cut from the lead; the reader sees it first.
+
+**4b. Register check (STYLE-GUIDE.md).** Flag or fix: sentence-style
+or "X, not Y" headings (headings must be short noun phrases with the
+section number), one-line hinge paragraphs, metaphors or
+personification, closing stingers or turns, "telco" outside quotes
+and product names (use "operator"), ranking language in the options
+section ("first", "strongest route", "should"), a glossary paragraph
+(move each definition to the sentence where the term first does real
+work, or delete it if the term is already defined there), and "This
+report examines" openers. Replace, do not delete the underlying fact.
 
 ### 5. Readability and house style
 
 Look for:
-- Sentences longer than ~40 words — break in two
-- Paragraphs longer than ~120 words — break in two by finding a natural
-  hinge (sub-topic shift, evidence → interpretation move)
-- Dense stacked citations (`[3][4][5][6]`) — consolidate to 1-2 per
-  claim for readability.
+- Sentences longer than about 40 words: break in two, unless the
+  length is deliberate and a short sentence follows it.
+- Paragraphs longer than about 120 words: break in two by finding a
+  natural hinge (sub-topic shift, evidence to interpretation move).
+- Paragraphs that end on a footnote marker, a percentage or a bracket:
+  move the marker inside the sentence, after the verb or noun it
+  supports, so the paragraph ends on its strongest word.
+- Stacked citations (`[^3][^4][^5]` or `[[a]] [[b]] [[c]]`): keep the
+  single best-supported marker per claim and move the others to the
+  Notes entry as "see also" if they add a source the reader would
+  want; otherwise drop them from the body.
+- More than one figure in a sentence: keep the one that changes the
+  meaning; move the others to the footnote or cut them.
 - **Body bold.** Bold is allowed only on run-in list leads (the first
   few words of a bullet or of a numbered item). Unbold every other
   bold phrase, including "**The bottom line:**" style labels; keep the
   sentence as plain prose.
-- **Numbered headings.** `## 1.`, `## I.`, `### 2.3` and similar: strip
-  the numbers. If a heading is a bare topic noun ("## Ownership") and
-  the section's closing sentence states a finding, rewrite the heading
-  as that finding in sentence form. Never change the order or count
-  of H2s (that is structure, which belongs to the orchestrator).
-- **Quote density.** More than about one quoted passage per 150 words
+- **Headings.** Body H2s are numbered short noun phrases ("## 3. What
+  vendors sell to operators"). Keep the numbers. If a heading is a
+  sentence or an "X, not Y" pair, rewrite it as the topic noun phrase
+  and make sure the finding sits in the section's first sentence.
+  Never change the order or count of H2s (that is structure, which
+  belongs to the orchestrator).
+- **Quote density.** More than about one quoted passage per 200 words
   in a section, or quoted fragments of fewer than six words stitched
   into the report's own sentences: convert the weaker quotes to
   paraphrase with the citation kept.
 - **Denominators and dates.** A percentage with no base, or an event
   with no date, where the cited source gives one: add it from the
-  source if it is in the draft or the evidence digest; otherwise
-  escalate rather than invent.
-- **Em-dashes.** Replace every `—` and ` - ` used as a dash with a
-  comma, a period or parentheses.
+  source if it is in the draft or the evidence digest (the footnote is
+  the right place when the body sentence already reads cleanly);
+  otherwise escalate rather than invent.
+- **Em-dashes.** Replace every em-dash and every ` - ` used as a dash
+  with a comma, a period or parentheses.
 - **First and second person.** "I", "we think", "you should": rewrite
-  as third person. ("We estimate" is acceptable only in `## About the
-  evidence`.)
+  as third person.
 - **Closing.** If the report or a major section ends on a summary
   sentence ("In summary, ...", "Overall, ..."), cut that sentence so
   the section ends on its last substantive sentence, quote or
   figure.
+- **Body length.** Count body words (title through closing, excluding
+  `## Notes`, `## Further reading` and any appendix). If the body
+  exceeds the decomposition's `length_budget_words` by more than ten
+  percent, do not cut evidence yourself; log an escalation naming the
+  tables or passages that should move to the appendix file.
 
 ## Procedure
 
@@ -319,8 +356,9 @@ Target log schema:
 - **Escalate structural mismatches.** If the draft's format does not
   match the prompt (ranked list vs. prose, FAQ vs. essay), do not force
   a polish Edit — log to escalations for the orchestrator.
-- **Sources section:** do not touch the Sources list — it is a product
-  feature.
+- **Notes and Further reading:** do not touch the `## Notes` block,
+  the `## Further reading` list or the appendix file. They are product
+  features.
 - **Net length after polish should be ≤ net length before.** If you
   find yourself adding net chars in a polish pass, you are doing the
   wrong job. Stop and escalate.

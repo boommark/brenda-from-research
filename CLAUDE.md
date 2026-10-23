@@ -1,6 +1,6 @@
 # CLAUDE
 <!-- hyperresearch:start -->
-## Research Base (hyperresearch) — Today is 2026-10-08
+## Research Base (hyperresearch): today is 2026-10-23
 
 **CLI path: `/Users/abhishekratna/.local/pipx/venvs/hyperresearch/bin/hyperresearch`** — use this exact path for every hyperresearch command. It may not be on your system PATH.
 
@@ -15,6 +15,10 @@ This project uses hyperresearch as an agent-driven research knowledge base. The 
 Step 1 classifies the query into one of two tiers (`light` or `full`) and the rest of the pipeline scales accordingly — short bounded queries skip the depth investigations, critics, and patcher (~30-40 min); argumentative deep-research queries run all 16 steps with adversarial review (~1.5-2.5 hours).
 
 **Do NOT use WebFetch for source pages** — use `/Users/abhishekratna/.local/pipx/venvs/hyperresearch/bin/hyperresearch fetch` instead. The skill files explain when to fetch vs. search.
+
+### How the final report reads
+
+Every final report follows `STYLE-GUIDE.md` at the vault root (2026-10-23 version). It is decision support written as a human expert would write it: a six-to-seven-page body (2,500 to 3,500 words, `length_budget_words` in the decomposition, default 3,000) unless the user explicitly asks for a long document; then numbered footnotes (`## Notes`), a `## Further reading` list, and a linked appendix file (`research/notes/appendix_<vault_tag>.md`) holding the long tables and per-entity detail. The lead states the controlling finding in its first sentence; at most six numbered noun-phrase sections; one "What would change this reading" callout; options described, never ranked; calibration in words, never as a label; one footnote per claim; no em-dashes. The engine files under `.claude/` carry the working rules; when they and the style guide disagree, the style guide wins.
 
 ### What the skill files own
 

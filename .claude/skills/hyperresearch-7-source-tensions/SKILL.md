@@ -5,9 +5,9 @@ description: >
   disagreements from the corpus into research/temp/source-tensions.json,
   including orphan tensions that didn't surface as loci. Reads full source
   bodies of top 8-12 sources (not summaries) to find tensions that hide
-  in nuance. The Source Tensions section in step 10's draft is the single
-  highest-leverage move for insight scores. Invoked via Skill tool from
-  the entry skill (full tier only).
+  in nuance. Presenting these tensions in prose inside the body sections
+  they bear on is the single highest-leverage move for insight scores.
+  Invoked via Skill tool from the entry skill (full tier only).
 ---
 
 # Step 7 — Source tension extraction
@@ -81,7 +81,7 @@ Read these inputs:
    }
    ```
 
-This artifact feeds directly into step 10's mandatory Source Tensions section. Every tension named here becomes a subsection in the final report.
+This artifact feeds step 10's drafts and step 11's synthesis. Each tension is presented in prose inside the body section it bears on (both sides' evidence, and which side has the better evidence and why); it does not get its own subsection, and the final report has no standalone "Source tensions" section. Open tensions supply bullets for the report's single `### What would change this reading` callout. Tensions that do not bear on the decision go to the appendix file.
 
 ---
 

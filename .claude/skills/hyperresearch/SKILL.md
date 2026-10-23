@@ -134,7 +134,7 @@ After step 1 returns, read `research/prompt-decomposition.json` to learn the tie
 
 2. **PATCH, NEVER REGENERATE.** After step 11 produces the synthesized final report (or step 10 for light tier), the only modifications are surgical Edit hunks from step 14 (patcher) and step 15 (polish-auditor). Both subagents are tool-locked to `[Read, Edit]`. If a critic's finding would require rewriting a whole section, it escalates to you as a structural issue — not a rewrite. Keep hunks surgical.
 
-3. **REVEAL, DON'T ARGUE.** The final report is an MIT, McKinsey or HBR style research report: factual, credible, engaging, honest. It states what the evidence supports, with how confident the evidence allows us to be, and where credible sources disagree it presents the disagreement and the evidence on each side rather than picking a winner. It never adopts a thesis for the sake of argumentative density. Claims that are highly dubious, single-sourced from a weak source, or contradicted by stronger sources are cut, not defended. Any "Nebius should..." style recommendation is out of scope unless the query asks for it, and then it is framed as options with evidence for and against. The pipeline's contradiction graph, loci, tensions and critics still run: they exist to find where the evidence forks and to check facts, and the report reports those forks plainly. Readability follows the newspaper-feature rules: a lede that gives the answer, short paragraphs, plain words, subheads that read like headlines, sources linked inline on the claim. No em-dashes.
+3. **DECISION SUPPORT, WRITTEN BY A HUMAN EXPERT.** The final report follows `STYLE-GUIDE.md` at the vault root. It is six to seven pages of body (2,500 to 3,500 words, `length_budget_words` in the decomposition) unless the user explicitly asked for a long document, followed by numbered footnotes, a further-reading list and a linked appendix file that holds the long tables and per-entity detail. It reads as if one expert wrote it for a peer who has to decide: warm, factual, even-handed, never pushy. The lead states the controlling finding in its first sentence; body sections are numbered noun-phrase headings, at most six; one callout lists what would change the reading; options, when asked for, are described with their precedent, requirement and obstacle, never ranked. It states what the evidence supports and how firmly, in words inside the sentence (never "Confidence is medium"), and where credible sources disagree it presents the evidence on each side and says which has the better evidence and why. Claims that are highly dubious, single-sourced from a weak source, or contradicted by stronger sources are cut, not defended. Any "X should..." recommendation is out of scope unless the query asks for it. The pipeline's contradiction graph, loci, tensions and critics still run: they exist to find where the evidence forks and to check facts, and the report reports those forks plainly. One footnote marker per claim, placed on the verb or noun; one figure per sentence; no em-dashes.
 
 4. **RESPECT THE TIER GATE.** See tier routing table. Don't add steps "for thoroughness." Don't drop steps "for budget." The tier is a binding contract.
 
@@ -170,7 +170,7 @@ Context compaction may eat parts of this conversation. If you're unsure what ste
    - Step 8: `research/corpus-critic-gaps.json`, `research/temp/corpus-critic-results.md`
    - Step 9: `research/temp/evidence-digest.md`
    - Step 10: `research/temp/draft-{a,b,c}.md` (or `research/notes/final_report_<vault_tag>.md` for light tier single-pass)
-   - Step 11: `research/temp/synthesis-plan.md`, `research/temp/synthesis-outline.md`, `research/temp/synthesis-pass1.md`, `research/notes/final_report_<vault_tag>.md`
+   - Step 11: `research/temp/synthesis-plan.md`, `research/temp/synthesis-outline.md`, `research/temp/synthesis-pass1.md`, `research/notes/final_report_<vault_tag>.md`, `research/notes/appendix_<vault_tag>.md`
    - Step 12: `research/critic-findings-{dialectic,depth,width,instruction}.json`
    - Step 13: `research/temp/post-critic-fetch-log.md`
    - Step 14: `research/patch-log.json` (and edited final_report.md)
@@ -208,7 +208,7 @@ $HPR lint --rule scaffold-prompt --json
 $HPR lint --rule patch-surgery --json
 ```
 
-If any rule returns `error` severity issues, address them before declaring complete. Then ship: the final report lives at `research/notes/final_report_<vault_tag>.md`.
+If any rule returns `error` severity issues, address them before declaring complete. Then ship: the final report lives at `research/notes/final_report_<vault_tag>.md`, with its appendix at `research/notes/appendix_<vault_tag>.md` (full tier). Tell the user both paths and the body word count against the budget.
 
 ---
 

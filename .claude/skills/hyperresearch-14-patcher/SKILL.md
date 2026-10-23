@@ -89,6 +89,14 @@ prompt: |
     ]
   - patch_log_path: research/patch-log.json   (already stubbed)
   - evidence_digest_path: research/temp/evidence-digest.md
+  - appendix_path: research/notes/appendix_<vault_tag>.md
+  - length_budget_words: <from the decomposition>
+
+  Write in the report's register (STYLE-GUIDE.md): named instances,
+  one figure per sentence, weight in words not labels, one [^N]
+  footnote marker per claim with a matching ## Notes entry. The body
+  is budgeted; when a finding adds a sentence to a body at budget, log
+  what should move to the appendix.
 ```
 
 The patcher's job:
@@ -123,8 +131,8 @@ The patcher populates `orchestrator_escalated` with findings where `requires_orc
 
 For each entry:
 1. Read the `issue` field to understand which H2 in the draft needs to move, be added, or be renamed.
-2. Apply the restructure via hand-written Edit calls on `research/notes/final_report_<vault_tag>.md`. You have Write and Edit access — the tool lock applies only to the patcher and polish auditor subagents.
-3. Preserve the body content within each H2 section — you are moving / renaming / inserting headings, not regenerating prose. If a new heading is added and its body needs fresh content, write a short evidence-grounded paragraph for it.
+2. Apply the restructure via hand-written Edit calls on `research/notes/final_report_<vault_tag>.md`. You have Write and Edit access; the tool lock applies only to the patcher and polish auditor subagents.
+3. Preserve the body content within each H2 section. You are moving, renaming or inserting headings, not regenerating prose. If a new heading is added and its body needs fresh content, write a short evidence-grounded paragraph for it in the house register. Keep the body at six H2s or fewer; if a critic asks for a seventh, fold the material into an existing section or the appendix file instead. Patch-log entries that name material to move to the appendix are yours to carry out here: cut the block from the body, append it to `research/notes/appendix_<vault_tag>.md`, and leave a one-sentence pointer.
 4. Log changes in `research/orchestrator-restructure-log.md` (plain markdown, one bullet per change) so downstream lint rules can see this step happened.
 5. Never regenerate a whole section or the whole draft. The "patch not regenerate" invariant still binds you — broader tools but not broader license.
 
