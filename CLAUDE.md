@@ -1,6 +1,6 @@
 # CLAUDE
 <!-- hyperresearch:start -->
-## Research Base (hyperresearch): today is 2026-10-23
+## Brenda from Research (engine on the hyperresearch CLI): today is 2026-10-23
 
 **CLI path: `/Users/abhishekratna/.local/pipx/venvs/hyperresearch/bin/hyperresearch`** — use this exact path for every hyperresearch command. It may not be on your system PATH.
 
@@ -10,7 +10,7 @@ This project uses hyperresearch as an agent-driven research knowledge base. The 
 
 ### How to do research
 
-**Run a research session with `/hyperresearch <query>`.** This invokes the V8 16-step pipeline. The entry skill at `.claude/skills/hyperresearch/SKILL.md` is a thin ROUTER. The 16 step procedures live in their own skills (`hyperresearch-1-decompose` through `hyperresearch-16-readability-audit`) and are loaded fresh into context via the `Skill` tool when each step runs. This solves V7's context-compaction problem: each step's procedure lands in context only when needed. Read the entry skill before you start a research session; it explains the chain mechanics.
+**Run a research session with `/brenda <query>` or `/hyperresearch <query>` (the same thing).** This invokes the V8 16-step pipeline. The entry skill at `.claude/skills/hyperresearch/SKILL.md` is a thin ROUTER. The 16 step procedures live in their own skills (`hyperresearch-1-decompose` through `hyperresearch-16-readability-audit`) and are loaded fresh into context via the `Skill` tool when each step runs. This solves V7's context-compaction problem: each step's procedure lands in context only when needed. Read the entry skill before you start a research session; it explains the chain mechanics.
 
 Step 1 classifies the query into one of two tiers (`light` or `full`) and the rest of the pipeline scales accordingly — short bounded queries skip the depth investigations, critics, and patcher (~30-40 min); argumentative deep-research queries run all 16 steps with adversarial review (~1.5-2.5 hours).
 
